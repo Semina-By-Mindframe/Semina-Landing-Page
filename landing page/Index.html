@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Semina — Grow With Confidence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --green: #1a9e5c; --green-dark: #0d7a44; --green-deeper: #0c5c33;
+  --green-light: #e8f7ef; --green-mid: #c8eedd;
+  --bg: #f4f8f5; --white: #ffffff; --dark: #0d1f17;
+  --mid: #3a5249; --light: #6b8a7a; --border: #e0ede7; --icon-bg: #e6f4ec;
+}
+html { scroll-behavior: smooth; }
+body { font-family: 'Nunito Sans', sans-serif; background: var(--bg); color: var(--dark); line-height: 1.6; }
+
+/* ── NAV ── */
+nav {
+  position: sticky; top: 0; z-index: 200;
+  background: rgba(255,255,255,0.96); backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 52px; height: 68px;
+}
+.nav-brand { display: flex; align-items: center; gap: 10px; cursor: pointer; }
+.nav-logo-icon { width: 36px; height: 36px; border-radius: 50%; background: var(--green); display: flex; align-items: center; justify-content: center; color: white; font-size: 18px; }
+.nav-brand-name { font-family: 'Sora', sans-serif; font-size: 18px; font-weight: 700; color: var(--dark); letter-spacing: 0.04em; }
+.nav-links { display: flex; gap: 34px; list-style: none; }
+.nav-links a {
+  font-size: 15px; font-weight: 600; color: var(--mid);
+  text-decoration: none; cursor: pointer;
+  padding-bottom: 4px;
+  border-bottom: 2px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
+}
+.nav-links a:hover { color: var(--green); }
+.nav-links a.active-nav { color: var(--green); border-bottom-color: var(--green); }
+.nav-cta {
+  background: var(--green); color: white;
+  font-family: 'Nunito Sans', sans-serif; font-size: 14px; font-weight: 700;
+  padding: 11px 26px; border-radius: 24px; border: none;
+  cursor: pointer; transition: background 0.2s, transform 0.15s;
+}
+.nav-cta:hover { background: var(--green-dark); transform: translateY(-1px); }
+
+/* ── PAGES ── */
+.page { display: none; }
+.page.active { display: block; }
+
+/* ── SHARED ── */
+.section { padding: 96px 52px; }
+.section-inner { max-width: 1180px; margin: 0 auto; }
+.section-eyebrow { text-align: center; font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--green); margin-bottom: 14px; }
+.section-title { text-align: center; font-family: 'Sora', sans-serif; font-size: clamp(28px, 3.8vw, 44px); font-weight: 800; color: var(--dark); margin-bottom: 14px; line-height: 1.15; }
+.section-sub { text-align: center; font-size: 16px; color: var(--light); max-width: 560px; margin: 0 auto 60px; line-height: 1.75; }
+.btn-primary { background: var(--green); color: white; font-family: 'Nunito Sans', sans-serif; font-size: 15px; font-weight: 700; padding: 14px 28px; border-radius: 28px; border: none; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; transition: background 0.2s, transform 0.15s; }
+.btn-primary:hover { background: var(--green-dark); transform: translateY(-1px); }
+.btn-outline { background: transparent; color: var(--green); font-family: 'Nunito Sans', sans-serif; font-size: 15px; font-weight: 700; padding: 13px 28px; border-radius: 28px; border: 2px solid var(--green); cursor: pointer; transition: background 0.2s; display: inline-block; }
+.btn-outline:hover { background: var(--green-light); }
+.checklist { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+.checklist li { display: flex; align-items: center; gap: 12px; font-size: 15px; color: var(--mid); font-weight: 600; }
+.check-icon { width: 22px; height: 22px; border-radius: 50%; border: 2px solid var(--green); display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: var(--green); font-size: 11px; font-weight: 800; }
+
+/* ── IMAGE PLACEHOLDER — float on hover ── */
+.img-ph {
+  border-radius: 20px; overflow: hidden; position: relative;
+  transition: transform 0.45s cubic-bezier(0.22,0.61,0.36,1), box-shadow 0.45s cubic-bezier(0.22,0.61,0.36,1);
+  box-shadow: 0 10px 36px rgba(13,31,23,0.12); cursor: pointer;
+}
+.img-ph:hover { transform: translateY(-14px) scale(1.025); box-shadow: 0 32px 72px rgba(13,31,23,0.22); }
+.img-ph-inner { width: 100%; height: 100%; min-height: 280px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; }
+.img-ph-icon { width: 62px; height: 62px; border-radius: 16px; background: rgba(255,255,255,0.22); border: 2px dashed rgba(255,255,255,0.55); display: flex; align-items: center; justify-content: center; font-size: 28px; }
+.img-ph-label { font-family: 'Sora', sans-serif; font-size: 12px; font-weight: 700; color: rgba(255,255,255,0.72); letter-spacing: 0.08em; text-transform: uppercase; background: rgba(0,0,0,0.18); padding: 5px 14px; border-radius: 20px; }
+.img-ph-hint { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; pointer-events: none; }
+.img-ph-hint span { opacity: 0; transform: translateY(8px); font-size: 12px; font-weight: 700; color: white; letter-spacing: 0.08em; text-transform: uppercase; background: rgba(26,158,92,0.88); padding: 7px 18px; border-radius: 20px; transition: opacity 0.3s, transform 0.3s; }
+.img-ph:hover .img-ph-hint span { opacity: 1; transform: translateY(0); }
+
+/* ── HERO ── */
+.hero { display: grid; grid-template-columns: 1fr 1fr; gap: 52px; align-items: center; max-width: 1180px; margin: 0 auto; padding: 72px 52px 96px; min-height: calc(100vh - 68px); }
+.hero-title { font-family: 'Sora', sans-serif; font-size: clamp(36px, 5vw, 60px); font-weight: 800; line-height: 1.1; color: var(--dark); margin-bottom: 6px; }
+.hero-title-green { font-family: 'Sora', sans-serif; font-size: clamp(36px, 5vw, 60px); font-weight: 800; line-height: 1.1; color: var(--green); margin-bottom: 24px; }
+.hero-sub { font-size: 16px; color: var(--light); line-height: 1.75; max-width: 460px; margin-bottom: 36px; }
+.hero-actions { display: flex; gap: 16px; align-items: center; }
+.hero-right { position: relative; }
+.hero-img-bg { background: linear-gradient(135deg,#1a5c38 0%,#2d8a5e 45%,#52b788 80%,#74c69d 100%); aspect-ratio: 4/3; }
+
+/* ── FEATURES ── */
+.features-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; }
+.feature-card { background: white; border-radius: 16px; border: 1px solid var(--border); padding: 30px 26px; position: relative; transition: box-shadow 0.3s, transform 0.3s; }
+.feature-card:hover { box-shadow: 0 16px 48px rgba(13,31,23,0.1); transform: translateY(-5px); }
+.feature-num { position: absolute; top: -17px; right: 22px; width: 34px; height: 34px; border-radius: 50%; background: var(--green); color: white; font-family: 'Sora', sans-serif; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+.feature-icon-wrap { width: 50px; height: 50px; border-radius: 14px; background: var(--icon-bg); display: flex; align-items: center; justify-content: center; margin-bottom: 18px; }
+.feature-icon-wrap svg { width: 24px; height: 24px; stroke: var(--green); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.feature-name { font-family: 'Sora', sans-serif; font-size: 16px; font-weight: 700; color: var(--dark); margin-bottom: 10px; }
+.feature-desc { font-size: 14px; color: var(--light); line-height: 1.7; }
+
+/* ── BENEFITS ── */
+.benefits-section { background: white; padding: 96px 52px; }
+.benefit-block { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; max-width: 1100px; margin: 0 auto 80px; }
+.benefit-block:last-child { margin-bottom: 0; }
+.benefit-block.rev { direction: rtl; }
+.benefit-block.rev > * { direction: ltr; }
+.bg-slate  { background: linear-gradient(135deg,#243b4a 0%,#3a6274 60%,#5d8ca0 100%); }
+.bg-garden { background: linear-gradient(135deg,#1a3d20 0%,#2d6a4f 50%,#52b788 100%); }
+.bg-green2 { background: linear-gradient(135deg,#1a4a2e 0%,#2d7a50 50%,#5aae88 100%); }
+.benefit-img-ratio { aspect-ratio: 4/3; }
+.benefit-icon-wrap { width: 54px; height: 54px; border-radius: 16px; background: var(--green); display: flex; align-items: center; justify-content: center; margin-bottom: 18px; }
+.benefit-icon-wrap svg { width: 26px; height: 26px; stroke: white; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.benefit-title { font-family: 'Sora', sans-serif; font-size: 26px; font-weight: 800; color: var(--dark); margin-bottom: 12px; }
+.benefit-body { font-size: 15px; color: var(--light); line-height: 1.75; margin-bottom: 22px; }
+
+/* ── TEAM ── */
+.team-section-label {
+  font-family: 'Sora', sans-serif; font-size: 12px; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--green);
+  margin-bottom: 20px; margin-top: 48px;
+  display: flex; align-items: center; gap: 12px;
+}
+.team-section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+.team-grid-5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px; }
+.team-grid-6 { display: grid; grid-template-columns: repeat(6, 1fr); gap: 20px; }
+.team-card { background: white; border-radius: 18px; border: 1px solid var(--border); overflow: hidden; transition: box-shadow 0.35s, transform 0.35s; }
+.team-card:hover { box-shadow: 0 20px 56px rgba(13,31,23,0.13); transform: translateY(-8px); }
+.team-av { width: 100%; aspect-ratio: 1/1; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; cursor: pointer; overflow: hidden; transition: transform 0.45s cubic-bezier(0.22,0.61,0.36,1); }
+.team-av:hover { transform: scale(1.04); }
+.team-av .img-ph-hint span { opacity: 0; transform: translateY(8px); transition: opacity 0.3s, transform 0.3s; }
+.team-av:hover .img-ph-hint span { opacity: 1; transform: translateY(0); }
+.team-initials { font-family: 'Sora', sans-serif; font-size: 26px; font-weight: 800; color: rgba(13,31,23,0.4); }
+.tc1 {background:linear-gradient(135deg,#d4edda,#a8d5b5);}
+.tc2 {background:linear-gradient(135deg,#d1ecf1,#85c8d8);}
+.tc3 {background:linear-gradient(135deg,#fce8d8,#f4b896);}
+.tc4 {background:linear-gradient(135deg,#e8d5f5,#c8a8e0);}
+.tc5 {background:linear-gradient(135deg,#fff3cd,#ffd97d);}
+.tc6 {background:linear-gradient(135deg,#f8d7da,#f5a8ae);}
+.tc7 {background:linear-gradient(135deg,#d0f0e8,#88d8c0);}
+.tc8 {background:linear-gradient(135deg,#e2d9f3,#b3a0d8);}
+.tc9 {background:linear-gradient(135deg,#d6eaf8,#85c1e9);}
+.tc10{background:linear-gradient(135deg,#fdf3e3,#f8c471);}
+.tc11{background:linear-gradient(135deg,#e9fce8,#9dd49a);}
+.team-info { padding: 16px 14px 18px; }
+.team-name { font-family: 'Sora', sans-serif; font-size: 14px; font-weight: 700; color: var(--dark); margin-bottom: 3px; }
+.team-role { font-size: 11.5px; color: var(--green); font-weight: 700; margin-bottom: 7px; }
+.team-bio { font-size: 11.5px; color: var(--light); line-height: 1.6; }
+.team-social { margin-top: 10px; display: flex; gap: 6px; }
+.team-social a { width: 26px; height: 26px; border-radius: 7px; background: var(--icon-bg); display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 11px; font-weight: 700; color: var(--green); transition: background 0.2s; }
+.team-social a:hover { background: var(--green-mid); }
+
+/* ── BUSINESS MODEL ── */
+.bm-hero { background: linear-gradient(135deg,#0d1f17 0%,#1a3d28 60%,#0d2d1a 100%); padding: 96px 52px; text-align: center; }
+.bm-hero .section-eyebrow { color: var(--green-mid); }
+.bm-hero .section-title { color: white; }
+.bm-hero .section-sub { color: rgba(255,255,255,0.58); margin-bottom: 0; }
+.bm-block { padding: 80px 52px; }
+.bm-3col { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; max-width: 1100px; margin: 0 auto; }
+.bm-pillar {
+  background: white; border-radius: 20px; border: 1px solid var(--border);
+  padding: 40px 32px; transition: box-shadow 0.3s, transform 0.3s;
+}
+.bm-pillar:hover { box-shadow: 0 18px 52px rgba(13,31,23,0.1); transform: translateY(-6px); }
+.bm-pillar-icon {
+  width: 52px; height: 52px; border-radius: 14px;
+  background: var(--icon-bg); border: 1px solid var(--green-mid);
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 20px;
+}
+.bm-pillar-icon svg { width: 24px; height: 24px; stroke: var(--green); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.bm-ptitle { font-family: 'Sora', sans-serif; font-size: 20px; font-weight: 800; color: var(--dark); margin-bottom: 12px; }
+.bm-pdesc { font-size: 14px; color: var(--light); line-height: 1.75; }
+
+/* ── PRICING ── */
+.pricing-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; max-width: 960px; margin: 0 auto; }
+.pricing-card { background: white; border-radius: 20px; border: 2px solid var(--border); padding: 36px 30px; position: relative; transition: box-shadow 0.3s, transform 0.3s; }
+.pricing-card:hover { box-shadow: 0 18px 52px rgba(13,31,23,0.1); transform: translateY(-5px); }
+.pricing-card.featured { border-color: var(--green); background: var(--dark); }
+.pricing-pop { position: absolute; top: -14px; left: 50%; transform: translateX(-50%); background: var(--green); color: white; font-size: 11px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; padding: 5px 14px; border-radius: 20px; white-space: nowrap; }
+.pricing-tier { font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--green); margin-bottom: 10px; }
+.featured .pricing-tier { color: var(--green-mid); }
+.pricing-price { font-family: 'Sora', sans-serif; font-size: 42px; font-weight: 800; color: var(--dark); margin-bottom: 4px; }
+.featured .pricing-price { color: white; }
+.pricing-period { font-size: 14px; color: var(--light); margin-bottom: 24px; }
+.featured .pricing-period { color: rgba(255,255,255,0.45); }
+.pricing-features { list-style: none; display: flex; flex-direction: column; gap: 11px; margin-bottom: 28px; }
+.pricing-features li { display: flex; align-items: center; gap: 10px; font-size: 14px; color: var(--mid); }
+.featured .pricing-features li { color: rgba(255,255,255,0.8); }
+.pricing-features li::before { content: '✓'; font-weight: 800; color: var(--green); flex-shrink: 0; }
+.featured .pricing-features li::before { color: var(--green-mid); }
+.pricing-btn { width: 100%; padding: 13px; border-radius: 28px; border: 2px solid var(--green); background: transparent; color: var(--green); font-family: 'Nunito Sans', sans-serif; font-size: 14px; font-weight: 700; cursor: pointer; transition: background 0.2s, color 0.2s; }
+.pricing-btn:hover { background: var(--green-light); }
+.featured .pricing-btn { background: var(--green); color: white; border-color: var(--green); }
+.featured .pricing-btn:hover { background: var(--green-dark); }
+
+/* ── CTA ── */
+.cta-section { background: var(--green); padding: 96px 52px; text-align: center; }
+.cta-section .section-title { color: white; }
+.cta-section .section-sub { color: rgba(255,255,255,0.72); }
+.cta-form { display: flex; max-width: 440px; margin: 0 auto; border-radius: 32px; overflow: hidden; box-shadow: 0 8px 32px rgba(0,0,0,0.18); }
+.cta-form input { flex: 1; padding: 15px 20px; font-size: 15px; border: none; outline: none; font-family: 'Nunito Sans', sans-serif; background: white; color: var(--dark); }
+.cta-form input::placeholder { color: #aaa; }
+.cta-form button { padding: 15px 26px; background: var(--dark); color: white; font-family: 'Nunito Sans', sans-serif; font-size: 13px; font-weight: 700; border: none; cursor: pointer; white-space: nowrap; transition: background 0.2s; }
+.cta-form button:hover { background: var(--green-deeper); }
+
+/* ── FOOTER ── */
+footer { background: var(--dark); color: rgba(255,255,255,0.4); padding: 38px 52px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+.footer-brand { font-family: 'Sora', sans-serif; font-size: 18px; font-weight: 700; color: white; display: flex; align-items: center; gap: 10px; cursor: pointer; }
+.footer-links-row { display: flex; gap: 24px; flex-wrap: wrap; }
+.footer-links-row a { font-size: 14px; color: rgba(255,255,255,0.38); text-decoration: none; cursor: pointer; transition: color 0.2s; }
+.footer-links-row a:hover { color: white; }
+.footer-copy { font-size: 13px; }
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp { from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:translateY(0);} }
+.a1{animation:fadeUp 0.65s 0.05s ease both;} .a2{animation:fadeUp 0.65s 0.12s ease both;}
+.a3{animation:fadeUp 0.65s 0.19s ease both;} .a4{animation:fadeUp 0.65s 0.26s ease both;}
+.a5{animation:fadeUp 0.65s 0.33s ease both;}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1100px){
+  .features-grid{grid-template-columns:1fr 1fr;}
+  .team-grid-5{grid-template-columns:repeat(3,1fr);}
+  .team-grid-6{grid-template-columns:repeat(3,1fr);}
+  .bm-3col{grid-template-columns:1fr 1fr;}
+  .pricing-grid{grid-template-columns:1fr;max-width:400px;}
+}
+@media(max-width:768px){
+  nav{padding:0 20px;} .nav-links{display:none;}
+  .hero{grid-template-columns:1fr;padding:40px 20px 60px;min-height:auto;gap:36px;}
+  .section{padding:60px 20px;} .benefits-section,.bm-block{padding:60px 20px;}
+  .benefit-block{grid-template-columns:1fr;gap:36px;} .benefit-block.rev{direction:ltr;}
+  .team-grid-5,.team-grid-6{grid-template-columns:repeat(2,1fr);}
+  footer{flex-direction:column;text-align:center;padding:28px 20px;}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════ NAV ═══════════ -->
+<nav>
+  <div class="nav-brand" onclick="showPage('home')">
+    <img src="data:image/png;base64,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" style="width:36px;height:36px;border-radius:50%;object-fit:cover;" />
+    <span class="nav-brand-name">SEMINA</span>
+  </div>
+
+  <ul class="nav-links">
+    <li><a id="nl-home"     onclick="showPage('home')">Home</a></li>
+    <li><a id="nl-features" onclick="goFeatures()">Features</a></li>
+    <li><a id="nl-team"     onclick="showPage('team')">Team</a></li>
+    <li><a id="nl-biz"      onclick="showPage('business')">Business Model</a></li>
+    <li><a id="nl-access"   onclick="goEarlyAccess()">Early Access</a></li>
+  </ul>
+
+  <button class="nav-cta" onclick="goEarlyAccess()">Join Waitlist</button>
+</nav>
+
+
+<!-- ══════════════════════════════════
+     HOME PAGE
+══════════════════════════════════ -->
+<div id="page-home" class="page active">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div>
+      <h1 class="hero-title a1">Your Plants,</h1>
+      <h1 class="hero-title-green a2">Always Thriving</h1>
+      <p class="hero-sub a3">Master the art of plant care with real-time monitoring, smart reminders, and personalised guidance. From beginners to experienced gardeners, Semina helps every plant reach its full potential.</p>
+      <div class="hero-actions a4">
+        <button class="btn-primary" onclick="goEarlyAccess()">Join Early Access →</button>
+        <button class="btn-outline" onclick="goFeatures()">Explore Features</button>
+      </div>
+    </div>
+    <div class="hero-right a5">
+      <div class="img-ph" style="border-radius:20px;overflow:hidden;aspect-ratio:4/3;">
+        <img src="SVG/Home page.svg" style="width:100%;height:100%;object-fit:contain;display:block;background:transparent;" />
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="section" id="features-section" style="background:var(--bg);">
+    <div class="section-inner">
+      <p class="section-eyebrow">Everything You Need</p>
+      <h2 class="section-title">Powerful Features of Semina</h2>
+      <p class="section-sub">A comprehensive toolkit to help you become a more confident plant parent — whether you are just starting out or managing a full indoor garden.</p>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-num">01</div>
+          <img src="SVG/Scanner.svg" style="width:100%;height:140px;object-fit:contain;display:block;margin-bottom:16px;" />
+          <div class="feature-name">Plant Health Scanner</div>
+          <div class="feature-desc">Photograph any plant to identify its species and receive immediate care recommendations. Potential issues are flagged early, before they escalate.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-num">02</div>
+          <img src="SVG/AR.svg" style="width:100%;height:140px;object-fit:contain;display:block;margin-bottom:16px;" />
+          <div class="feature-name">AR Plant Placement</div>
+          <div class="feature-desc">Visualise true-to-scale 3D plant models in your home before purchasing. Assess light availability and spatial fit directly through your camera.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-num">03</div>
+          <img src="SVG/Sensor.svg" style="width:100%;height:140px;object-fit:contain;display:block;margin-bottom:16px;" />
+          <div class="feature-name">Smart Sensor Kit</div>
+          <div class="feature-desc">Connect Bluetooth soil sensors to monitor moisture, temperature, and nutrients in real time. Receive automated alerts when your plants require attention.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-num">04</div>
+          <img src="SVG/Logbook.svg" style="width:100%;height:140px;object-fit:contain;display:block;margin-bottom:16px;" />
+          <div class="feature-name">Plant Logbook</div>
+          <div class="feature-desc">Maintain a complete care history for each plant — watering events, repottings, health notes, and photographs — all in one chronological timeline.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BENEFITS -->
+  <section class="benefits-section">
+    <div style="max-width:1180px;margin:0 auto;">
+      <p class="section-eyebrow">Why Choose Semina</p>
+      <h2 class="section-title">Transform Your Plant Care Routine</h2>
+      <p class="section-sub">Discover how thoughtful technology can make plant care more effective, more rewarding, and less stressful.</p>
+    </div>
+
+    <div class="benefit-block" style="margin-top:56px;">
+      <div class="img-ph benefit-img-ratio" style="border-radius:20px;overflow:hidden;">
+        <img src="SVG/Sensor.svg" style="width:100%;height:100%;object-fit:contain;display:block;background:transparent;" />
+      </div>
+      <div>
+        <div class="benefit-icon-wrap"><svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
+        <h3 class="benefit-title">Intelligent Monitoring</h3>
+        <p class="benefit-body">IoT sensors and smart scheduling work continuously to keep your plants healthy. Receive timely, actionable insights directly on your device — no guesswork required.</p>
+        <ul class="checklist">
+          <li><div class="check-icon">✓</div>Real-time environmental monitoring</li>
+          <li><div class="check-icon">✓</div>Predictive care recommendations</li>
+          <li><div class="check-icon">✓</div>Automated watering reminders</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="benefit-block rev">
+      <div class="img-ph benefit-img-ratio" style="border-radius:20px;overflow:hidden;">
+        <img src="SVG/AR.svg" style="width:100%;height:100%;object-fit:contain;display:block;background:transparent;" />
+      </div>
+      <div>
+        <div class="benefit-icon-wrap"><svg viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></div>
+        <h3 class="benefit-title">Measurable Results</h3>
+        <p class="benefit-body">Users consistently report healthier, longer-lived plants after adopting Semina. Informed care decisions lead to visible improvements within weeks.</p>
+        <ul class="checklist">
+          <li><div class="check-icon">✓</div>Improved plant survival rates</li>
+          <li><div class="check-icon">✓</div>Faster, more consistent growth</li>
+          <li><div class="check-icon">✓</div>Reduced plant care stress</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="benefit-block">
+      <div class="img-ph benefit-img-ratio" style="border-radius:20px;overflow:hidden;">
+        <img src="SVG/Logbook.svg" style="width:100%;height:100%;object-fit:contain;display:block;background:transparent;" />
+      </div>
+      <div>
+        <div class="benefit-icon-wrap"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <h3 class="benefit-title">Learn and Grow Together</h3>
+        <p class="benefit-body">Access guidance from plant care specialists and connect with a growing community of enthusiasts. Share your progress, ask questions, and celebrate every milestone.</p>
+        <ul class="checklist">
+          <li><div class="check-icon">✓</div>Expert-curated tips and tutorials</li>
+          <li><div class="check-icon">✓</div>Active community support</li>
+          <li><div class="check-icon">✓</div>Multilingual care assistance</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- EARLY ACCESS CTA -->
+  <section class="cta-section" id="early-access-section">
+    <p class="section-eyebrow" style="color:rgba(255,255,255,0.6);">Early Access</p>
+    <h2 class="section-title">Join Thousands of Plant Parents</h2>
+    <p class="section-sub">Be among the first to experience Semina. Secure your spot and receive exclusive early access benefits at launch.</p>
+    <div class="cta-form">
+      <input type="email" placeholder="Enter your email address">
+      <button type="button">Join Waitlist</button>
+    </div>
+  </section>
+
+</div><!-- /home -->
+
+
+<!-- ══════════════════════════════════
+     TEAM PAGE
+══════════════════════════════════ -->
+<div id="page-team" class="page">
+
+  <div style="background:linear-gradient(135deg,#0d1f17 0%,#1a3d28 70%,#0d2d1a 100%);padding:80px 52px;text-align:center;">
+    <p class="section-eyebrow" style="color:var(--green-mid);">Our People</p>
+    <h2 class="section-title" style="color:white;">Meet the Team Behind Semina</h2>
+    <p class="section-sub" style="color:rgba(255,255,255,0.55);margin-bottom:0;">
+      A dedicated group of software developers and UI/UX designers united by one mission — building tools that help every plant thrive.
+    </p>
+  </div>
+
+  <section class="section" style="background:var(--bg);">
+    <div class="section-inner">
+
+      <!-- DEVELOPERS — 5 members -->
+      <div class="team-section-label">Developers</div>
+      <div class="team-grid-5">
+
+        <div class="team-card">
+          <div class="team-av tc1">
+            <span class="team-initials">G</span>
+            <div class="img-ph-hint"><span>Upload Photo</span></div>
+          </div>
+          <div class="team-info">
+            <div class="team-name">Gaurav</div>
+            <div class="team-role">Full-Stack Developer</div>
+            <div class="team-bio">React Native · Supabase · API integration and core app architecture.</div>
+            <div class="team-social"><a href="#">in</a><a href="#">gh</a></div>
+          </div>
+        </div>
+
+        <div class="team-card">
+          <div class="team-av tc2">
+            <span class="team-initials">N</span>
+            <div class="img-ph-hint"><span>Upload Photo</span></div>
+          </div>
+          <div class="team-info">
+            <div class="team-name">Neel</div>
+            <div class="team-role">UI Developer</div>
+            <div class="team-bio">Expo · Component systems · Bridging design and development on mobile.</div>
+            <div class="team-social"><a href="#">in</a><a href="#">gh</a></div>
+          </div>
+        </div>
+
+        <div class="team-card">
+          <div class="team-av tc3">
+            <span class="team-initials">M</span>
+            <div class="img-ph-hint"><span>Upload Photo</span></div>
+          </div>
+          <div class="team-info">
+            <div class="team-name">Manmeet</div>
+            <div class="team-role">AR Developer</div>
+            <div class="team-bio">Unity · ARKit · Building the augmented reality plant placement experience.</div>
+            <div class="team-social"><a href="#">in</a><a href="#">gh</a></div>
+          </div>
+        </div>
+
+        <div class="team-card">
+          <div class="team-av tc4">
+            <span class="team-initials">S</span>
+            <div class="img-ph-hint"><span>Upload Photo</span></div>
+          </div>
+          <div class="team-info">
+            <div class="team-name">Shubham</div>
+            <div class="team-role">Backend Developer</div>
+            <div class="team-bio">GPT-4o integration · Dashboard · Chatbot features and server-side logic.</div>
+            <div class="team-social"><a href="#">in</a><a href="#">gh</a></div>
+          </div>
+        </div>
+
+        <div class="team-card">
+          <div class="team-av tc5">
+            <span class="team-initials">G</span>
+            <div class="img-ph-hint"><span>Upload Photo</span></div>
+          </div>
+          <div class="team-info">
+            <div class="team-name">Gurdit</div>
+            <div class="team-role">IoT Developer</div>
+            <div class="team-bio">Bluetooth sensors · Hardware integration · Real-time soil data pipeline.</div>
+            <div class="team-social"><a href="#">in</a><a href="#">gh</a></div>
+          </div>
+        </div>
+
+      </div><!-- /developers -->
+
+      <!-- DESIGNERS — 6 members -->
+      <div class="team-section-label">Designers</div>
+      <div class="team-grid-6">
+
+        <div class="team-card">
+          <div class="team-av tc6">
+            <span class="team-initials">B</span>
+            <div class="img-ph-hint"><span>Upload Photo</span></div>
+          </div>
+          <div class="team-info">
+            <div class="team-name">Binazir</div>
+            <div class="team-role">Project Manager · UX Lead</div>
+            <div class="team-bio">Coordinates team delivery and leads the overall user experience strategy.</div>
+            <div class="team-social"><a href="#">in</a></div>
+          </div>
+        </div>
+
+        <div class="team-card">
+          <div class="team-av tc7">
+            <span class="team-initials">D2</span>
+            <div class="img-ph-hint"><span>Upload Photo</span></div>
+          </div>
+          <div class="team-info">
+            <div class="team-name">Designer 2</div>
+            <div class="team-role">Visual Designer</div>
+            <div class="team-bio">Brand identity, colour systems, and visual language across all touchpoints.</div>
+            <div class="team-social"><a href="#">in</a></div>
+          </div>
+        </div>
+
+        <div class="team-card">
+          <div class="team-av tc8">
+            <span class="team-initials">D3</span>
+            <div class="img-ph-hint"><span>Upload Photo</span></div>
+          </div>
+          <div class="team-info">
+            <div class="team-name">Designer 3</div>
+            <div class="team-role">UI Designer</div>
+            <div class="team-bio">Screen layouts, component libraries, and interface consistency across iOS and Android.</div>
+            <div class="team-social"><a href="#">in</a></div>
+          </div>
+        </div>
+
+        <div class="team-card">
+          <div class="team-av tc9">
+            <span class="team-initials">D4</span>
+            <div class="img-ph-hint"><span>Upload Photo</span></div>
+          </div>
+          <div class="team-info">
+            <div class="team-name">Designer 4</div>
+            <div class="team-role">Motion Designer</div>
+            <div class="team-bio">Animations, transitions, and micro-interactions that bring the app to life.</div>
+            <div class="team-social"><a href="#">in</a></div>
+          </div>
+        </div>
+
+        <div class="team-card">
+          <div class="team-av tc10">
+            <span class="team-initials">D5</span>
+            <div class="img-ph-hint"><span>Upload Photo</span></div>
+          </div>
+          <div class="team-info">
+            <div class="team-name">Designer 5</div>
+            <div class="team-role">UX Researcher</div>
+            <div class="team-bio">User testing, journey mapping, and translating research findings into design improvements.</div>
+            <div class="team-social"><a href="#">in</a></div>
+          </div>
+        </div>
+
+        <div class="team-card">
+          <div class="team-av tc11">
+            <span class="team-initials">D6</span>
+            <div class="img-ph-hint"><span>Upload Photo</span></div>
+          </div>
+          <div class="team-info">
+            <div class="team-name">Designer 6</div>
+            <div class="team-role">Interaction Designer</div>
+            <div class="team-bio">Accessibility standards, interaction patterns, and prototype development in Figma.</div>
+            <div class="team-social"><a href="#">in</a></div>
+          </div>
+        </div>
+
+      </div><!-- /designers -->
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <p class="section-eyebrow" style="color:rgba(255,255,255,0.6);">Early Access</p>
+    <h2 class="section-title">Ready to Help Your Plants Thrive?</h2>
+    <p class="section-sub">Join our waitlist and be the first to experience Semina when we launch.</p>
+    <div class="cta-form">
+      <input type="email" placeholder="Enter your email address">
+      <button type="button">Join Waitlist</button>
+    </div>
+  </section>
+
+</div><!-- /team -->
+
+
+<!-- ══════════════════════════════════
+     BUSINESS MODEL PAGE
+══════════════════════════════════ -->
+<div id="page-business" class="page">
+
+  <div class="bm-hero">
+    <p class="section-eyebrow">Business Model</p>
+    <h2 class="section-title">How Semina Creates Value</h2>
+    <p class="section-sub">A multi-layered model built on recurring subscriptions, hardware, and enterprise partnerships — rooted in genuine outcomes for plant parents worldwide.</p>
+  </div>
+
+  <!-- THREE PILLARS -->
+  <div class="bm-block" style="background:var(--bg);">
+    <div class="section-inner">
+      <p class="section-eyebrow">Our Foundation</p>
+      <h2 class="section-title">Three Core Pillars</h2>
+      <p class="section-sub">Semina sits at the intersection of consumer wellness, IoT hardware, and mobile software — creating a defensible and scalable business over time.</p>
+      <div class="bm-3col">
+
+        <div class="bm-pillar">
+          <div class="bm-pillar-icon">
+            <svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12" y2="18"/></svg>
+          </div>
+          <div class="bm-ptitle">Mobile Software</div>
+          <div class="bm-pdesc">A recurring subscription app with plant diagnostics, personalised care schedules, and community access. High margin, low churn, and the core of our revenue model.</div>
+        </div>
+
+        <div class="bm-pillar">
+          <div class="bm-pillar-icon">
+            <svg viewBox="0 0 24 24"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><circle cx="12" cy="20" r="1" fill="var(--green)"/></svg>
+          </div>
+          <div class="bm-ptitle">Hardware Sensors</div>
+          <div class="bm-pdesc">Smart sensor kits sold direct-to-consumer and through retail partners. Hardware deepens user engagement and drives long-term subscription retention.</div>
+        </div>
+
+        <div class="bm-pillar">
+          <div class="bm-pillar-icon">
+            <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg>
+          </div>
+          <div class="bm-ptitle">Enterprise &amp; Partnerships</div>
+          <div class="bm-pdesc">White-label platform for nurseries, botanical gardens, and urban farms. API access for research institutions and agri-technology partners.</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- PRICING -->
+  <div class="bm-block" style="background:white;">
+    <div class="section-inner">
+      <p class="section-eyebrow">Pricing</p>
+      <h2 class="section-title">Simple, Transparent Plans</h2>
+      <p class="section-sub">Start for free and upgrade as your collection grows. No hidden fees — cancel at any time.</p>
+      <div class="pricing-grid">
+
+        <div class="pricing-card">
+          <div class="pricing-tier">Seedling</div>
+          <div class="pricing-price">$0</div>
+          <div class="pricing-period">Free forever</div>
+          <ul class="pricing-features">
+            <li>Up to 5 plants tracked</li>
+            <li>Basic plant identification</li>
+            <li>Community access</li>
+            <li>Weekly care reminders</li>
+          </ul>
+          <button class="pricing-btn">Get Started Free</button>
+        </div>
+
+        <div class="pricing-card featured">
+          <div class="pricing-pop">Most Popular</div>
+          <div class="pricing-tier">Grower</div>
+          <div class="pricing-price">$9</div>
+          <div class="pricing-period">per month, billed annually</div>
+          <ul class="pricing-features">
+            <li>Unlimited plants tracked</li>
+            <li>Advanced diagnostics</li>
+            <li>Sensor kit integration</li>
+            <li>AR plant placement</li>
+            <li>Priority support</li>
+          </ul>
+          <button class="pricing-btn">Start 14-Day Free Trial</button>
+        </div>
+
+        <div class="pricing-card">
+          <div class="pricing-tier">Botanist</div>
+          <div class="pricing-price">$24</div>
+          <div class="pricing-period">per month, billed annually</div>
+          <ul class="pricing-features">
+            <li>Everything in Grower</li>
+            <li>Multiple locations</li>
+            <li>Team collaboration</li>
+            <li>API access</li>
+            <li>Custom reports &amp; exports</li>
+            <li>Dedicated account manager</li>
+          </ul>
+          <button class="pricing-btn">Contact Sales</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <section class="cta-section">
+    <p class="section-eyebrow" style="color:rgba(255,255,255,0.6);">Partner With Us</p>
+    <h2 class="section-title">Invest in the Future of Plant Care</h2>
+    <p class="section-sub">We are actively seeking mission-aligned investors and enterprise partners. We would welcome the opportunity to connect.</p>
+    <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
+      <button class="btn-primary" style="background:white;color:var(--green);">Download Pitch Deck</button>
+      <button class="btn-outline" style="border-color:rgba(255,255,255,0.5);color:white;">Contact Founders</button>
+    </div>
+  </section>
+
+</div><!-- /business -->
+
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer>
+  <div class="footer-brand" onclick="showPage('home')">
+    <img src="data:image/png;base64,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" style="width:36px;height:36px;border-radius:50%;object-fit:cover;" />
+    SEMINA
+  </div>
+  <div class="footer-links-row">
+    <a onclick="showPage('home')">Home</a>
+    <a onclick="goFeatures()">Features</a>
+    <a onclick="showPage('team')">Team</a>
+    <a onclick="showPage('business')">Business Model</a>
+    <a onclick="goEarlyAccess()">Early Access</a>
+  </div>
+  <div class="footer-copy">© 2026 Semina. All rights reserved.</div>
+</footer>
+
+
+<script>
+/* ── Core page switcher ── */
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  setActiveNav(id);
+}
+
+/* ── Highlight active nav link ── */
+function setActiveNav(id) {
+  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active-nav'));
+  const map = { home: 'nl-home', team: 'nl-team', business: 'nl-biz' };
+  if (map[id]) document.getElementById(map[id]).classList.add('active-nav');
+}
+
+/* ── Features: show home page, scroll to features, turn Features green ── */
+function goFeatures() {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-home').classList.add('active');
+
+  // Mark Features as active in nav
+  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active-nav'));
+  document.getElementById('nl-features').classList.add('active-nav');
+
+  // Scroll after a short delay to let page render
+  setTimeout(() => {
+    const el = document.getElementById('features-section');
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 60);
+}
+
+/* ── Early Access: show home page, scroll to CTA, turn Early Access green ── */
+function goEarlyAccess() {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-home').classList.add('active');
+
+  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active-nav'));
+  document.getElementById('nl-access').classList.add('active-nav');
+
+  setTimeout(() => {
+    const el = document.getElementById('early-access-section');
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 60);
+}
+
+/* ── Scroll spy: update nav highlight as user scrolls on home page ── */
+window.addEventListener('scroll', () => {
+  const homePage = document.getElementById('page-home');
+  if (!homePage.classList.contains('active')) return;
+
+  const scrollY = window.scrollY;
+  const featEl   = document.getElementById('features-section');
+  const accessEl = document.getElementById('early-access-section');
+
+  const featTop   = featEl   ? featEl.offsetTop   - 90 : Infinity;
+  const featBot   = featEl   ? featTop + featEl.offsetHeight : Infinity;
+  const accessTop = accessEl ? accessEl.offsetTop - 90 : Infinity;
+
+  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active-nav'));
+
+  if (scrollY >= accessTop) {
+    document.getElementById('nl-access').classList.add('active-nav');
+  } else if (scrollY >= featTop && scrollY < featBot) {
+    document.getElementById('nl-features').classList.add('active-nav');
+  } else {
+    document.getElementById('nl-home').classList.add('active-nav');
+  }
+});
+
+// Set Home as default active on load
+document.getElementById('nl-home').classList.add('active-nav');
+</script>
+</body>
+</html>
