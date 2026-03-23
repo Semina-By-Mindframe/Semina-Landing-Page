@@ -5,400 +5,1072 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Semina — Grow With Confidence</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,300&display=swap" rel="stylesheet">
+<style>
+/* ── TOKENS ── */
+:root{
+  --primary:#266427;--secondary:#006641;--info:#00A86B;
+  --success:#12D18E;--warning:#FACC15;--error:#F75555;
+  --dark1:#181A20;--dark2:#1E2025;--dark3:#1F222A;--dark4:#262A35;--dark5:#35383F;
+  --bg:#f2f7f3;--white:#ffffff;--text:#0d1f17;
+  --mid:#3a5249;--light:#6b8a7a;--border:#d4e8da;
+  --green-mid:#c8eedd;--green-light:#e8f7ef;--icon-bg:#e6f4ec;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Lato',sans-serif;font-weight:400;
+  background:var(--bg);color:var(--text);
+  line-height:1.6;overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ── PROGRESS BAR ── */
+#pb{position:fixed;top:0;left:0;height:3px;width:0%;
+  background:linear-gradient(90deg,var(--secondary),var(--success));z-index:9999}
+
+/* ── NAV ── */
+nav{
+  position:sticky;top:0;z-index:500;height:64px;
+  padding:0 24px;display:flex;align-items:center;justify-content:space-between;
+  background:rgba(255,255,255,0.95);backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);transition:box-shadow .3s;
+}
+nav.scrolled{box-shadow:0 4px 20px rgba(13,31,23,.07)}
+.nav-brand{display:flex;align-items:center;gap:9px;cursor:pointer}
+.nav-brand img{width:34px;height:34px;border-radius:50%;object-fit:cover}
+.nav-brand-name{font-size:17px;font-weight:900;color:var(--text);letter-spacing:.04em}
+.nav-links{display:none;gap:28px;list-style:none}
+.nav-links a{font-size:14px;font-weight:700;color:var(--mid);text-decoration:none;cursor:pointer;
+  letter-spacing:.03em;padding-bottom:3px;border-bottom:2px solid transparent;
+  transition:color .2s,border-color .2s}
+.nav-links a:hover,.nav-links a.active-nav{color:var(--secondary);border-bottom-color:var(--success)}
+.nav-right{display:flex;align-items:center;gap:10px}
+.nav-cta{background:var(--secondary);color:#fff;font-family:'Lato',sans-serif;
+  font-weight:700;font-size:13px;letter-spacing:.05em;text-transform:uppercase;
+  padding:9px 20px;border-radius:6px;border:none;cursor:pointer;
+  transition:background .2s,transform .15s;white-space:nowrap}
+.nav-cta:hover{background:var(--primary);transform:translateY(-1px)}
+.nav-ham{display:flex;flex-direction:column;gap:5px;cursor:pointer;
+  background:none;border:none;padding:4px}
+.nav-ham span{display:block;width:22px;height:2px;background:var(--text);
+  border-radius:2px;transition:.3s}
+.nav-mobile{
+  display:none;
+  flex-direction:column;
+  background:#ffffff;
+  padding:0;
+  gap:0;
+  position:fixed;
+  top:64px;
+  left:0;
+  right:0;
+  width:100vw;
+  z-index:9998;
+  box-shadow:0 8px 32px rgba(13,31,23,.18);
+  border-top:1px solid var(--border);
+}
+.nav-mobile a{
+  font-size:17px;
+  font-weight:700;
+  color:var(--text);
+  padding:18px 24px;
+  cursor:pointer;
+  border-bottom:1px solid var(--border);
+  display:block;
+  width:100%;
+  background:#ffffff;
+  transition:background .15s, color .15s;
+  text-align:left;
+}
+.nav-mobile a:last-child{border-bottom:none}
+.nav-mobile a:hover{background:var(--green-light);color:var(--secondary)}
+.nav-mobile a.active-nav{color:var(--secondary);background:var(--green-light)}
+
+/* ── PAGES ── */
+.page{display:none}.page.active{display:block}
+
+/* ── SHARED ── */
+.sec{padding:72px 20px}
+.section-inner{max-width:1160px;margin:0 auto}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--secondary);margin-bottom:12px;text-align:center}
+.sec-title{font-size:clamp(26px,5vw,44px);font-weight:900;color:var(--text);
+  margin-bottom:12px;line-height:1.08;letter-spacing:-.02em;text-align:center}
+.sec-sub{font-size:16px;font-weight:300;line-height:1.72;color:var(--light);
+  max-width:540px;margin:0 auto 52px;text-align:center}
+.btn{font-family:'Lato',sans-serif;font-weight:700;font-size:14px;letter-spacing:.05em;
+  text-transform:uppercase;padding:14px 28px;border-radius:6px;border:none;cursor:pointer;
+  display:inline-flex;align-items:center;gap:8px;transition:background .2s,transform .15s;
+  min-height:48px}
+.btn-solid{background:var(--secondary);color:#fff}
+.btn-solid:hover{background:var(--primary);transform:translateY(-2px)}
+.btn-ghost{background:transparent;color:var(--success);border:2px solid var(--success);
+  text-decoration:none}
+.btn-ghost:hover{background:rgba(18,209,142,.08);transform:translateY(-2px)}
+.btn-store{background:var(--dark1);color:#fff;border:1px solid rgba(255,255,255,.15);
+  padding:12px 20px;border-radius:8px;gap:10px;min-height:52px;font-size:13px;
+  transition:background .2s,transform .15s}
+.btn-store:hover{background:var(--dark3);transform:translateY(-2px)}
+.btn-store-sub{font-size:9.5px;font-weight:400;letter-spacing:.06em;text-transform:uppercase;
+  opacity:.65;display:block;line-height:1}
+.btn-store-name{font-size:16px;font-weight:900;display:block;letter-spacing:-.01em}
+.check-li{display:flex;align-items:center;gap:10px;font-size:16px;font-weight:600;color:var(--mid)}
+.check-circle{width:22px;height:22px;border-radius:50%;border:2px solid var(--secondary);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  color:var(--secondary);font-size:11px;font-weight:900}
+
+/* mobile nav overlay */
+#mob-overlay{
+  display:none;
+  position:fixed;
+  inset:0;
+  top:64px;
+  background:rgba(0,0,0,0.4);
+  z-index:9997;
+}
+.reveal{opacity:0;transform:translateY(32px);transition:opacity .7s ease,transform .7s ease}
+.reveal.from-left{transform:translateX(-48px)}
+.reveal.from-right{transform:translateX(48px)}
+.reveal.pop{transform:scale(.92) translateY(16px)}
+.reveal.in{opacity:1;transform:none!important}
+.d1{transition-delay:.07s}.d2{transition-delay:.14s}.d3{transition-delay:.21s}
+.d4{transition-delay:.28s}.d5{transition-delay:.35s}.d6{transition-delay:.42s}
+
+/* SVG float animations */
+@keyframes float1{0%,100%{transform:translateY(0)}50%{transform:translateY(-16px)}}
+@keyframes float2{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+.float-a{animation:float1 6s ease-in-out infinite}
+.float-b{animation:float2 7.5s ease-in-out infinite 1.2s}
+
+/* hero entrance */
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+.a1{animation:fadeUp .65s .05s ease both}
+.a2{animation:fadeUp .65s .12s ease both}
+.a3{animation:fadeUp .65s .20s ease both}
+.a4{animation:fadeUp .65s .28s ease both}
+.a5{animation:fadeUp .65s .36s ease both}
+
+/* ── HERO ── */
+.hero{
+  display:flex;flex-direction:column;gap:48px;
+  padding:60px 24px 72px;max-width:1160px;margin:0 auto;
+}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--green-light);border:1px solid var(--green-mid);
+  color:var(--secondary);font-size:11px;font-weight:700;
+  letter-spacing:.12em;text-transform:uppercase;
+  padding:6px 14px;border-radius:4px;margin-bottom:20px;width:fit-content;
+}
+.hero-dot{width:6px;height:6px;border-radius:50%;background:var(--success);
+  animation:pulse 2s ease infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.75)}}
+.hero-title{font-size:clamp(42px,10vw,80px);font-weight:900;line-height:.96;
+  letter-spacing:-.03em;color:var(--text);margin-bottom:4px}
+.hero-title-green{font-size:clamp(42px,10vw,80px);font-weight:900;line-height:.96;
+  letter-spacing:-.03em;color:var(--secondary);margin-bottom:22px}
+.hero-sub{font-size:18px;font-weight:300;line-height:1.68;color:var(--light);
+  max-width:480px;margin-bottom:32px}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:32px}
+.hero-stores{display:flex;gap:12px;flex-wrap:wrap}
+.hero-img{position:relative;width:100%;display:flex;align-items:center;justify-content:center}
+.hero-img img{
+  width:100%;height:auto;display:block;
+  filter:drop-shadow(0 28px 56px rgba(0,102,65,.16));
+  transition:transform .6s cubic-bezier(.22,.61,.36,1);
+}
+.hero-img:hover img{transform:translateY(-10px) scale(1.015)}
+
+/* ── FEATURES ── */
+.feature-num{ display:none; }
+/* ── BENEFITS ── */
+.benefit-block{
+  display:flex;flex-direction:column;gap:40px;
+  max-width:1100px;margin:0 auto 80px;
+}
+.benefit-block:last-child{margin-bottom:0}
+.benefit-img{
+  display:flex;align-items:center;justify-content:center;
+  width:100%;
+}
+.benefit-img img{
+  width:100%;max-width:600px;height:auto;min-height:300px;
+  object-fit:contain;display:block;background:transparent;
+  filter:drop-shadow(0 20px 40px rgba(0,102,65,.13));
+  transition:transform .5s cubic-bezier(.22,.61,.36,1);
+}
+.benefit-img:hover img{transform:translateY(-12px) scale(1.02)}
+.benefit-icon{
+  width:50px;height:50px;border-radius:13px;background:var(--secondary);
+  display:flex;align-items:center;justify-content:center;margin-bottom:16px;
+}
+.benefit-icon svg{width:24px;height:24px;stroke:white;stroke-width:2;fill:none;
+  stroke-linecap:round;stroke-linejoin:round}
+.benefit-title{font-size:clamp(22px,4vw,32px);font-weight:900;color:var(--text);
+  margin-bottom:12px;letter-spacing:-.02em;line-height:1.1}
+.benefit-body{font-size:16px;font-weight:300;color:var(--light);line-height:1.75;margin-bottom:22px}
+.checklist{list-style:none;display:flex;flex-direction:column;gap:11px}
+
+/* ── CTA ── */
+.cta-sec{
+  background:linear-gradient(135deg,var(--secondary),var(--primary));
+  padding:80px 24px;text-align:center;position:relative;overflow:hidden;
+}
+.cta-sec::before{content:'';position:absolute;inset:0;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events:none}
+.cta-sec .sec-title{color:#fff}.cta-sec .sec-sub{color:rgba(255,255,255,.75)}
+.cta-form{display:flex;flex-direction:column;gap:10px;max-width:440px;margin:0 auto}
+.cta-form input{padding:14px 18px;font-size:15px;border:none;outline:none;border-radius:6px;
+  font-family:'Lato',sans-serif;background:white;color:var(--text)}
+.cta-form input::placeholder{color:#aaa}
+.cta-form button{padding:14px 28px;background:var(--dark1);color:white;border-radius:6px;
+  font-family:'Lato',sans-serif;font-size:14px;font-weight:700;letter-spacing:.05em;
+  text-transform:uppercase;border:none;cursor:pointer;transition:background .2s}
+.cta-form button:hover{background:#000}
+
+/* ── TEAM ── */
+.team-label{
+  font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--secondary);margin-bottom:18px;margin-top:44px;
+  display:flex;align-items:center;gap:12px;
+}
+.team-label::after{content:'';flex:1;height:1px;background:var(--border)}
+.team-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.team-card{background:white;border-radius:14px;border:1px solid var(--border);
+  overflow:hidden;transition:box-shadow .35s,transform .35s,border-color .35s}
+.team-card:hover{box-shadow:0 16px 48px rgba(13,31,23,.11);
+  transform:translateY(-6px);border-color:var(--green-mid)}
+.team-av{width:100%;aspect-ratio:1/1;overflow:hidden;display:flex;
+  align-items:center;justify-content:center}
+.team-av img{width:100%;height:100%;object-fit:cover;
+  transition:transform .4s ease;display:block}
+.team-card:hover .team-av img{transform:scale(1.05)}
+.team-initials{font-size:26px;font-weight:900;color:rgba(13,31,23,.28)}
+.team-info{padding:14px 12px 16px}
+.team-name{font-size:14px;font-weight:900;color:var(--text);margin-bottom:2px}
+.team-role{font-size:11px;color:var(--secondary);font-weight:700;margin-bottom:6px}
+.team-bio{font-size:11.5px;color:var(--light);line-height:1.55}
+.team-social{margin-top:9px;display:flex;gap:5px}
+.team-social a{width:26px;height:26px;border-radius:5px;background:var(--icon-bg);
+  display:flex;align-items:center;justify-content:center;text-decoration:none;
+  font-size:10px;font-weight:700;color:var(--secondary);transition:background .2s,color .2s}
+.team-social a:hover{background:var(--secondary);color:#fff}
+
+/* avatar backgrounds — all white */
+.tc1,.tc2,.tc3,.tc4,.tc5,.tc6,.tc7,.tc8,.tc9,.tc10{background:#ffffff}
+
+/* ── BUSINESS MODEL ── */
+.bm-hero{background:linear-gradient(135deg,#0d1f17,#1a3d28 60%,#0d2d1a);
+  padding:80px 24px;text-align:center}
+.bm-hero .eyebrow{color:var(--green-mid)}
+.bm-hero .sec-title{color:white}
+.bm-hero .sec-sub{color:rgba(255,255,255,.58);margin-bottom:0}
+.bm-block{padding:64px 24px}
+.pillars{display:flex;flex-direction:column;gap:20px;max-width:1100px;margin:0 auto}
+.pillar{background:white;border-radius:18px;border:1px solid var(--border);
+  padding:36px 28px;transition:box-shadow .3s,transform .3s,border-color .3s}
+.pillar:hover{box-shadow:0 16px 48px rgba(13,31,23,.09);
+  transform:translateY(-5px);border-color:var(--green-mid)}
+.pillar-icon{width:50px;height:50px;border-radius:13px;background:var(--icon-bg);
+  border:1px solid var(--green-mid);display:flex;align-items:center;
+  justify-content:center;margin-bottom:18px}
+.pillar-icon svg{width:24px;height:24px;stroke:var(--secondary);fill:none;
+  stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.pillar-title{font-size:19px;font-weight:900;color:var(--text);margin-bottom:10px;letter-spacing:-.01em}
+.pillar-desc{font-size:14px;font-weight:300;color:var(--light);line-height:1.75}
+.plans{display:flex;flex-direction:column;gap:20px;max-width:900px;margin:0 auto}
+.plan{background:white;border-radius:14px;border:2px solid var(--border);
+  padding:32px 26px;position:relative;transition:box-shadow .3s,transform .3s}
+.plan:hover{box-shadow:0 16px 48px rgba(13,31,23,.09);transform:translateY(-4px)}
+.plan.featured{border-color:var(--secondary);background:var(--dark1)}
+.plan-pop{position:absolute;top:-13px;left:50%;transform:translateX(-50%);
+  background:var(--secondary);color:#fff;font-size:10px;font-weight:900;
+  letter-spacing:.07em;text-transform:uppercase;padding:4px 14px;border-radius:4px;white-space:nowrap}
+.plan-tier{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--secondary);margin-bottom:8px}
+.featured .plan-tier{color:var(--green-mid)}
+.plan-price{font-size:44px;font-weight:900;color:var(--text);margin-bottom:4px;letter-spacing:-.03em}
+.featured .plan-price{color:white}
+.plan-period{font-size:13px;color:var(--light);margin-bottom:22px}
+.featured .plan-period{color:rgba(255,255,255,.45)}
+.plan-feats{list-style:none;display:flex;flex-direction:column;gap:10px;margin-bottom:26px}
+.plan-feats li{display:flex;align-items:center;gap:9px;font-size:14px;color:var(--mid)}
+.featured .plan-feats li{color:rgba(255,255,255,.8)}
+.plan-feats li::before{content:"✓";font-weight:900;color:var(--secondary);flex-shrink:0}
+.featured .plan-feats li::before{color:var(--green-mid)}
+.plan-btn{width:100%;padding:13px;border-radius:6px;border:2px solid var(--secondary);
+  background:transparent;color:var(--secondary);font-family:'Lato',sans-serif;
+  font-size:13px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;
+  cursor:pointer;transition:background .2s,color .2s;min-height:48px}
+.plan-btn:hover{background:var(--green-light)}
+.featured .plan-btn{background:var(--secondary);color:white}
+.featured .plan-btn:hover{background:var(--primary)}
+
+/* ── FOOTER ── */
+footer{background:var(--dark1);color:rgba(255,255,255,.38);
+  padding:36px 24px;display:flex;flex-direction:column;gap:16px;align-items:center;text-align:center}
+.footer-brand{font-size:16px;font-weight:900;color:white;letter-spacing:.04em;
+  display:flex;align-items:center;gap:9px;cursor:pointer}
+.footer-brand img{width:30px;height:30px;border-radius:50%;object-fit:cover}
+.footer-links{display:flex;gap:18px;flex-wrap:wrap;justify-content:center}
+.footer-links a{font-size:12px;font-weight:700;letter-spacing:.04em;
+  color:rgba(255,255,255,.38);text-decoration:none;cursor:pointer;
+  transition:color .2s;text-transform:uppercase}
+.footer-links a:hover{color:var(--success)}
+.footer-copy{font-size:12px}
+
+/* ── TABLET ── */
+/* ══════════════════════════════
+   MOBILE BASE (default — 0px+)
+══════════════════════════════ */
+body { font-size: 16px; }
+
+.hero {
+  flex-direction: column;
+  padding: 40px 20px 56px;
+  gap: 36px;
+  text-align: left;
+}
+.hero-content { width: 100%; }
+.hero-img { width: 100%; }
+.hero-img img { width: 100%; max-width: 400px; margin: 0 auto; display: block; }
+
+.hero-actions { flex-direction: column; align-items: flex-start; }
+.hero-actions .btn { width: 100%; justify-content: center; }
+.hero-stores { flex-direction: column; }
+.hero-stores .btn-store { width: 100%; }
+
+.features-grid { grid-template-columns: 1fr; gap: 24px; }
+.feature-card img { max-height: 280px; }
+
+.benefit-block { flex-direction: column !important; gap: 32px; }
+.benefit-block.rev { flex-direction: column !important; }
+.benefit-img img { min-height: 220px; max-width: 100%; width: 100%; }
+.benefit-text { width: 100%; }
+
+.team-grid { grid-template-columns: repeat(2,1fr); gap: 14px; }
+.team-grid-des { grid-template-columns: repeat(2,1fr); gap: 14px; }
+
+.pillars { flex-direction: column; gap: 16px; }
+.plans { flex-direction: column; gap: 20px; }
+
+.cta-form { flex-direction: column; gap: 10px; }
+.cta-form input { border-radius: 6px; width: 100%; }
+.cta-form button { border-radius: 6px; width: 100%; }
+
+footer { flex-direction: column; align-items: center; text-align: center; gap: 14px; padding: 28px 20px; }
+.footer-links { justify-content: center; gap: 14px; }
+
+.sec { padding: 60px 20px; }
+.bm-block { padding: 52px 20px; }
+.bm-hero { padding: 60px 20px; }
+.sec-title { font-size: clamp(24px, 6vw, 44px); }
+.benefit-title { font-size: clamp(20px, 5vw, 32px); }
+.hero-title, .hero-title-green { font-size: clamp(38px, 10vw, 80px); }
+.hero-sub { font-size: 16px; max-width: 100%; }
+.checklist li { font-size: 15px; }
+
+/* ══════════════════════════════
+   TABLET (640px+)
+══════════════════════════════ */
+@media(min-width: 640px) {
+  .hero { padding: 56px 32px 72px; }
+  .features-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  .feature-card img { max-height: 320px; }
+  .team-grid { grid-template-columns: repeat(3, 1fr); }
+  .team-grid-des { grid-template-columns: repeat(3, 1fr); }
+  .pillars { flex-direction: row; flex-wrap: wrap; }
+  .pillar { flex: 1; min-width: 220px; }
+  .plans { flex-direction: row; flex-wrap: wrap; }
+  .plan { flex: 1; min-width: 220px; }
+  .cta-form { flex-direction: row; border-radius: 8px; overflow: hidden; gap: 0; }
+  .cta-form input { border-radius: 0; flex: 1; width: auto; }
+  .cta-form button { border-radius: 0; white-space: nowrap; width: auto; }
+  footer { flex-direction: row; justify-content: space-between; text-align: left; }
+  .hero-actions { flex-direction: row; align-items: center; }
+  .hero-actions .btn { width: auto; }
+  .hero-stores { flex-direction: row; }
+  .hero-stores .btn-store { width: auto; }
+  .benefit-img img { min-height: 280px; }
+}
+
+/* ══════════════════════════════
+   DESKTOP (900px+)
+══════════════════════════════ */
+@media(min-width: 900px) {
+  .sec { padding: 100px 56px; }
+  .bm-block { padding: 80px 56px; }
+  nav { padding: 0 56px; }
+  nav .nav-links { display: flex; }
+  .nav-ham { display: none; }
+
+  .hero {
+    flex-direction: row;
+    align-items: center;
+    padding: 80px 56px 100px;
+    min-height: calc(100vh - 64px);
+    gap: 60px;
+    text-align: left;
+  }
+  .hero-content { flex: 1; }
+  .hero-img { flex: 1; }
+  .hero-img img { width: 100%; max-width: none; }
+
+  .features-grid { grid-template-columns: repeat(4, 1fr); gap: 22px; }
+  .feature-card img { max-height: 360px; }
+
+  .benefit-block { flex-direction: row !important; align-items: center; gap: 72px; }
+  .benefit-block.rev { flex-direction: row-reverse !important; }
+  .benefit-img { flex: 1; }
+  .benefit-img img { min-height: 360px; max-width: none; width: 100%; }
+  .benefit-text { flex: 1; }
+
+  .team-grid { grid-template-columns: repeat(5, 1fr); }
+  .team-grid-des { grid-template-columns: repeat(5, 1fr); }
+
+  .pillars { flex-direction: row; }
+  .plans { flex-direction: row; }
+  footer { padding: 36px 56px; flex-direction: row; text-align: left; }
+}
+
+/* ── FEATURES GRID ── */
+.features-grid{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:24px;
+}
+.feature-card{
+  background:white;
+  border-radius:20px;
+  border:1px solid var(--border);
+  padding:28px 20px 32px;
+  position:relative;
+  transition:box-shadow .35s,transform .35s,border-color .35s;
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+}
+.feature-card:hover{
+  box-shadow:0 20px 52px rgba(13,31,23,.1);
+  transform:translateY(-5px);
+  border-color:var(--green-mid);
+}
+.feature-card img{
+  width:90%;
+  height:auto;
+  max-height:360px;
+  object-fit:contain;
+  display:block;
+  margin-bottom:22px;
+  background:transparent;
+  transition:transform .45s cubic-bezier(.22,.61,.36,1);
+}
+.feature-card:hover img{transform:translateY(-8px) scale(1.03)}
+.feature-name{
+  font-size:20px;
+  font-weight:900;
+  color:var(--text);
+  margin-bottom:10px;
+  letter-spacing:-.01em;
+}
+.feature-desc{
+  font-size:15px;
+  font-weight:400;
+  color:var(--light);
+  line-height:1.65;
+}
+
+
+/* ── PDF VIEWER MODAL ── */
+#pdf-modal{
+  display:none;
+  position:fixed;inset:0;z-index:99999;
+  background:rgba(0,0,0,0.82);
+  backdrop-filter:blur(6px);
+  align-items:center;justify-content:center;
+  padding:20px;
+}
+#pdf-modal.open{display:flex}
+.pdf-modal-box{
+  background:white;
+  border-radius:14px;
+  width:100%;max-width:900px;
+  height:90vh;
+  display:flex;flex-direction:column;
+  overflow:hidden;
+  box-shadow:0 32px 80px rgba(0,0,0,.4);
+}
+.pdf-modal-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 20px;
+  border-bottom:1px solid var(--border);
+  flex-shrink:0;
+}
+.pdf-modal-title{
+  font-size:15px;font-weight:700;color:var(--text);
+  display:flex;align-items:center;gap:8px;
+}
+.pdf-modal-actions{display:flex;align-items:center;gap:10px}
+.pdf-modal-dl{
+  display:inline-flex;align-items:center;gap:6px;
+  background:var(--secondary);color:white;
+  font-family:'Lato',sans-serif;font-size:12px;font-weight:700;
+  letter-spacing:.05em;text-transform:uppercase;
+  padding:8px 16px;border-radius:5px;text-decoration:none;
+  transition:background .2s;
+}
+.pdf-modal-dl:hover{background:var(--primary)}
+.pdf-modal-close{
+  width:34px;height:34px;border-radius:8px;
+  background:var(--bg);border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;font-size:18px;color:var(--mid);
+  transition:background .15s,color .15s;line-height:1;
+}
+.pdf-modal-close:hover{background:var(--error);color:white;border-color:var(--error)}
+#pdf-iframe{
+  flex:1;width:100%;border:none;background:#f5f5f5;
+}
+
+</style>
 </head>
 <body>
+<div id="pb"></div>
 
-<nav>
- <div class="nav-brand" onclick="showPage('home')">
-     <img src="./SVG/logo-green.svg" alt="logo" class="nav-logo" />
-     <img src="./SVG/semina-text-logo.svg" alt="Semina" class="nav-logo-text" />
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-brand" onclick="showPage('home')">
+    <img src="data:image/png;base64,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" alt="Semina">
+    <span class="nav-brand-name">SEMINA</span>
   </div>
   <ul class="nav-links">
-    <li><a id="nl-home"     onclick="showPage('home')">Home</a></li>
-    <li><a id="nl-features" onclick="goFeatures()">Features</a></li>
-    <li><a id="nl-team"     onclick="showPage('team')">Team</a></li>
-    <li><a id="nl-biz"      onclick="showPage('business')">Business Model</a></li>
-    <li><a id="nl-access"   onclick="goEarlyAccess()">Early Access</a></li>
+    <li><a id="nl-home" onclick="showPage('home')">Home</a></li>
+    <li><a id="nl-feat" onclick="goFeatures()">Features</a></li>
+    <li><a id="nl-team" onclick="showPage('team')">Team</a></li>
+    <li><a id="nl-biz"  onclick="showPage('business')">Business Model</a></li>
+    <li><a id="nl-acc"  onclick="goEarlyAccess()">Early Access</a></li>
   </ul>
-
-  <button class="nav-cta" onclick="goEarlyAccess()">Join Waitlist</button>
+  <div class="nav-right">
+    <button class="nav-cta" onclick="goEarlyAccess()">Join Waitlist</button>
+    <button class="nav-ham" id="ham" onclick="toggleMobile()">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
 </nav>
+<div id="mob-overlay" onclick="closeMob()"></div>
+<nav class="nav-mobile" id="mob">
+  <a onclick="showPage('home');closeMob()">Home</a>
+  <a onclick="goFeatures();closeMob()">Features</a>
+  <a onclick="showPage('team');closeMob()">Team</a>
+  <a onclick="showPage('business');closeMob()">Business Model</a>
+  <a onclick="goEarlyAccess();closeMob()">Early Access</a>
+</nav>
+
+<!-- ════════ HOME ════════ -->
 <div id="page-home" class="page active">
-  <section class="hero">
-  <div>
-    <p class="section-eyebrow" style="text-align: left; margin-left: 5px;">Introducing Semina</p>
-    <h1 class="hero-title a1">Design Your</h1>
-    <h1 class="hero-title-green a2">Living Oasis</h1>
-    <p class="hero-sub a3">
-      The future of plant care is here. Scan health, visualize with AR, and connect smart sensors to grow with absolute confidence.
-    </p>
-    <div class="hero-actions a4">
-      <button class="btn-primary" onclick="goEarlyAccess()">Get Started Free</button>
-      <button class="btn-outline" onclick="goFeatures()">Watch Demo</button>
-    </div>
-  </div>
 
-  <div class="hero-right a5">
-    <div class="img-ph">
-      <div class="logo-badge" style="position: absolute; top: 20px; left: 20px; width: 50px; height: 50px; background: white; border-radius: 12px; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 20px rgba(0,0,0,0.05); z-index: 30;">
-         <img src="./SVG/logo.svg" style="width: 70%; height: auto; margin: 0; position: static; transform: none; filter: none;">
+  <!-- HERO -->
+  <div style="background:var(--bg);">
+    <section class="hero">
+      <div class="hero-content">
+        <div class="hero-badge a1"><div class="hero-dot"></div>Introducing Semina</div>
+        <h1 class="hero-title a2">Design Your</h1>
+        <h1 class="hero-title-green a3">Living Oasis</h1>
+        <p class="hero-sub a4">Plant care shouldn't be guesswork. Semina scans your plants, shows you where to put them in AR, and alerts you before anything goes wrong.</p>
+        <div class="hero-actions a4">
+          <button class="btn btn-solid" onclick="goEarlyAccess()">Get Started Free →</button>
+          <a class="btn btn-ghost" href="proposal/Semina-Proposal.pdf" download>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><polyline points="9 15 12 18 15 15"/></svg>
+            Download Proposal
+          </a>
+         
+        </div>
+        
+      <div class="hero-img a5">
+        <img src="SVG/Home page.svg" alt="Semina App" class="float-a">
       </div>
-      
-      <img src="SVG/Home page.svg" alt="Semina App 3D Preview">
-    </div>
+    </section>
   </div>
-</section>
 
-  <section class="section" id="features-section" style="background:var(--bg);">
+  <!-- FEATURES -->
+  <section class="sec" id="feat-sec" style="background:var(--bg);">
     <div class="section-inner">
-      <p class="section-eyebrow">Everything You Need</p>
-      <h2 class="section-title">Powerful Features of Semina</h2>
-      <p class="section-sub">A comprehensive toolkit to help you become a more confident plant parent — whether you are just starting out or managing a full indoor garden.</p>
+      <p class="eyebrow reveal">What Semina Does</p>
+      <h2 class="sec-title reveal d1">Built around how you actually care for plants</h2>
+      <p class="sec-sub reveal d2">Four core tools that cover everything — from the moment you spot a sick leaf to tracking its full recovery.</p>
       <div class="features-grid">
-        <div class="feature-card">
+        <div class="feature-card reveal pop">
           <div class="feature-num">01</div>
-          <img src="SVG/Scanner.svg" alt="Scanner">
+          <img src="SVG/Scanner.svg" alt="Plant Health Scanner">
           <div class="feature-name">Plant Health Scanner</div>
-          <div class="feature-desc">Photograph any plant to identify its species and receive immediate care recommendations. Potential issues are flagged early, before they escalate.</div>
+          <div class="feature-desc">Point your camera at any plant and get an instant read on what's going on — species ID, care tips, and early warnings before problems get worse.</div>
         </div>
-        <div class="feature-card">
+        <div class="feature-card reveal pop d1">
           <div class="feature-num">02</div>
-          <img src="SVG/AR.svg" alt="AR">
+          <img src="SVG/AR.svg" alt="AR Plant Placement">
           <div class="feature-name">AR Plant Placement</div>
-          <div class="feature-desc">Visualise true-to-scale 3D plant models in your home before purchasing. Assess light availability and spatial fit directly through your camera.</div>
+          <div class="feature-desc">See exactly how a plant will look and fit in your space before you bring it home. Check light levels and spacing — no more bad placement surprises.</div>
         </div>
-        <div class="feature-card">
+        <div class="feature-card reveal pop d2">
           <div class="feature-num">03</div>
-          <img src="SVG/Sensor.svg" alt="Sensor">
+          <img src="SVG/Sensor.svg" alt="Smart Sensor Kit">
           <div class="feature-name">Smart Sensor Kit</div>
-          <div class="feature-desc">Connect Bluetooth soil sensors to monitor moisture, temperature, and nutrients in real time. Receive automated alerts when your plants require attention.</div>
+          <div class="feature-desc">Bluetooth sensors sit in your soil and send live moisture, temperature, and nutrient readings straight to your phone. You'll know exactly when to water — not before, not after.</div>
         </div>
-        <div class="feature-card">
+        <div class="feature-card reveal pop d3">
           <div class="feature-num">04</div>
-          <img src="SVG/Logbook.svg" alt="Logbook">
+          <img src="SVG/Logbook.svg" alt="Plant Logbook">
           <div class="feature-name">Plant Logbook</div>
-          <div class="feature-desc">Maintain a complete care history for each plant — watering events, repottings, health notes, and photographs — all in one chronological timeline.</div>
+          <div class="feature-desc">Every watering, repotting, and health note in one place. A full timeline for each plant so you can look back and actually learn what works.</div>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="benefits-section">
-    <div class="section-inner" style="margin-bottom: 60px;">
-      <p class="section-eyebrow">Why Choose Semina</p>
-      <h2 class="section-title">Transform Your Plant Care Routine</h2>
-      <p class="section-sub">Discover how thoughtful technology can make plant care more effective, more rewarding, and less stressful.</p>
+  <!-- BENEFITS -->
+  <section class="sec" style="background:white;">
+    <div class="section-inner" style="margin-bottom:64px;">
+      <p class="eyebrow reveal">Why It Works</p>
+      <h2 class="sec-title reveal d1">Stop guessing. Start growing.</h2>
+      <p class="sec-sub reveal d2">Most plants die from overwatering or bad placement. Semina fixes both.</p>
     </div>
 
-    <div class="benefit-block">
-      <div class="benefit-img-ratio">
-        <img src="SVG/Sensor.svg" alt="Smart Sensor Monitoring" />
+    <div class="benefit-block reveal">
+      <div class="benefit-img from-left">
+        <img src="SVG/Sensor.svg" alt="Sensor monitoring" class="float-b">
       </div>
-      <div>
-        <div class="benefit-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
-        <h3 class="benefit-title">Intelligent Monitoring</h3>
-        <p class="benefit-body">IoT sensors and smart scheduling work continuously to keep your plants healthy. Receive timely, actionable insights directly on your device — no guesswork required.</p>
+      <div class="benefit-text from-right">
+        <div class="benefit-icon"><svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
+        <h3 class="benefit-title">Your plants tell you what they need</h3>
+        <p class="benefit-body">The sensors read your soil in real time and flag issues before they become visible. No more poking the soil and wondering — you'll get a notification when it's actually time to water.</p>
         <ul class="checklist">
-          <li><div class="check-icon">✓</div>Real-time environmental monitoring</li>
-          <li><div class="check-icon">✓</div>Predictive care recommendations</li>
-          <li><div class="check-icon">✓</div>Automated watering reminders</li>
+          <li><div class="check-circle">✓</div><span class="check-li">Live soil moisture, temp and nutrients</span></li>
+          <li><div class="check-circle">✓</div><span class="check-li">Alerts before problems get visible</span></li>
+          <li><div class="check-circle">✓</div><span class="check-li">Works with any plant, any pot size</span></li>
         </ul>
       </div>
     </div>
 
-    <div class="benefit-block rev">
-      <div class="benefit-img-ratio">
-        <img src="SVG/AR.svg" alt="AR Plant Placement" />
+    <div class="benefit-block rev" style="margin-top:80px;">
+      <div class="benefit-img from-right">
+        <img src="SVG/AR.svg" alt="AR placement" class="float-a">
       </div>
-      <div>
-        <div class="benefit-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></div>
-        <h3 class="benefit-title">Visualise Your Space</h3>
-        <p class="benefit-body">Users consistently report healthier, longer-lived plants after adopting Semina. Informed care decisions lead to visible improvements within weeks.</p>
+      <div class="benefit-text from-left">
+        <div class="benefit-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M2 12h2M20 12h2M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg></div>
+        <h3 class="benefit-title">See it in your space before you buy</h3>
+        <p class="benefit-body">Use the AR viewer to drop any plant into your room at actual scale. Check if it fits, if it gets enough light, and how it looks — all from your phone camera.</p>
         <ul class="checklist">
-          <li><div class="check-icon">✓</div>True-to-scale 3D plant models</li>
-          <li><div class="check-icon">✓</div>Spatial light assessment</li>
-          <li><div class="check-icon">✓</div>Reduced plant care stress</li>
+          <li><div class="check-circle">✓</div><span class="check-li">Full 3D plant models at real scale</span></li>
+          <li><div class="check-circle">✓</div><span class="check-li">Light level overlay per location</span></li>
+          <li><div class="check-circle">✓</div><span class="check-li">Screenshot and share your layout</span></li>
         </ul>
       </div>
     </div>
 
-    <div class="benefit-block">
-      <div class="benefit-img-ratio">
-        <img src="SVG/Logbook.svg" alt="Plant Logbook" />
+    <div class="benefit-block" style="margin-top:80px;">
+      <div class="benefit-img from-left">
+        <img src="SVG/Logbook.svg" alt="Plant Logbook" class="float-b">
       </div>
-      <div>
-        <div class="benefit-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div>
-        <h3 class="benefit-title">Learn and Grow Together</h3>
-        <p class="benefit-body">Access guidance from plant care specialists and connect with a growing community of enthusiasts. Share your progress, ask questions, and celebrate every milestone.</p>
+      <div class="benefit-text from-right">
+        <div class="benefit-icon"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></div>
+        <h3 class="benefit-title">A record of every plant, not just a photo</h3>
+        <p class="benefit-body">The logbook keeps a full timeline — waterings, repottings, health notes, and photos. After a few months you'll actually know what your plant likes and doesn't like.</p>
         <ul class="checklist">
-          <li><div class="check-icon">✓</div>Expert-curated tips and tutorials</li>
-          <li><div class="check-icon">✓</div>Active community support</li>
-          <li><div class="check-icon">✓</div>Chronological health timeline</li>
+          <li><div class="check-circle">✓</div><span class="check-li">Full care history per plant</span></li>
+          <li><div class="check-circle">✓</div><span class="check-li">Photo diary with timestamps</span></li>
+          <li><div class="check-circle">✓</div><span class="check-li">Available in 29 languages</span></li>
         </ul>
       </div>
     </div>
   </section>
 
-  <section class="cta-section" id="early-access-section">
-    <p class="section-eyebrow" style="color:rgba(255,255,255,0.6);">Early Access</p>
-    <h2 class="section-title">Join Thousands of Plant Parents</h2>
-    <p class="section-sub">Be among the first to experience Semina. Secure your spot and receive exclusive early access benefits at launch.</p>
-    <div class="cta-form">
-      <input type="email" placeholder="Enter your email address">
+  <!-- EARLY ACCESS CTA -->
+  <section class="cta-sec" id="acc-sec">
+    <p class="eyebrow reveal" style="color:rgba(255,255,255,.6);">Early Access</p>
+    <h2 class="sec-title reveal d1">Want early access?</h2>
+    <p class="sec-sub reveal d2">Drop your email and we'll reach out when spots open up. No spam, just a heads-up when it's ready.</p>
+    <div class="cta-form reveal d3">
+      <input type="email" placeholder="your@email.com">
       <button type="button">Join Waitlist</button>
     </div>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:24px;" class="reveal d4">
+      <button class="btn btn-store" onclick="goEarlyAccess()" style="background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+        <div><span class="btn-store-sub">Download on the</span><span class="btn-store-name">App Store</span></div>
+      </button>
+      <button class="btn btn-store" onclick="goEarlyAccess()" style="background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M3.18 23.65c.3.17.64.22.99.13l12.47-7.2-2.79-2.79-10.67 9.86zM.58 1.3C.22 1.7 0 2.28 0 3.02v17.96c0 .74.22 1.32.59 1.72l.09.09 10.06-10.06v-.24L.67 1.21l-.09.09zm20.65 8.84l-2.87-1.65-3.14 3.14 3.14 3.14 2.9-1.67c.83-.48.83-1.25-.03-1.96zM3.18.35L15.65 7.55l-2.79 2.79L2.18.48C2.48.27 2.88.18 3.18.35z"/></svg>
+        <div><span class="btn-store-sub">Get it on</span><span class="btn-store-name">Google Play</span></div>
+      </button>
+    </div>
   </section>
 
-</div>
+</div><!-- /home -->
+
+<!-- ════════ TEAM ════════ -->
 <div id="page-team" class="page">
-  <div style="background:linear-gradient(135deg,#0d1f17 0%,#1a3d28 70%,#0d2d1a 100%);padding:80px 52px;text-align:center;">
-    <p class="section-eyebrow" style="color:var(--green-mid);">Our People</p>
-    <h2 class="section-title" style="color:white;">Meet the Team Behind Semina</h2>
-    <p class="section-sub" style="color:rgba(255,255,255,0.55);margin-bottom:0;">A dedicated group of software developers and UI/UX designers united by one mission — building tools that help every plant thrive.</p>
+  <div style="background:linear-gradient(135deg,#0d1f17,#1a3d28 70%,#0d2d1a);padding:72px 24px;text-align:center;">
+    <p class="eyebrow" style="color:var(--green-mid);">The People</p>
+    <h2 class="sec-title" style="color:white;">11 people, one mission</h2>
+    <p class="sec-sub" style="color:rgba(255,255,255,.55);margin-bottom:0;">Software developers and UI/UX designers who got tired of watching houseplants die and decided to build something about it.</p>
   </div>
 
-  <section class="section" style="background:var(--bg);">
+  <section class="sec" style="background:var(--bg);">
     <div class="section-inner">
-      
-      <div class="team-section-label">Developers</div>
-      <div class="team-grid-5">
 
-        <div class="team-card">
-          <div class="team-av">
-            <img src="img/team/gaurav.jpeg" alt="Gaurav" style="width:100%; height:100%; object-fit:cover;">
-          </div>
+      <div class="team-label">Developers</div>
+      <div class="team-grid">
+        <div class="team-card reveal pop">
+          <div class="team-av tc1"><img src="img/team/gaurav.jpeg" alt="Gaurav" onerror="this.style.display='none';this.parentNode.innerHTML='<span class=team-initials>G</span>'"></div>
           <div class="team-info">
             <div class="team-name">Gaurav</div>
             <div class="team-role">Full-Stack Developer</div>
-            <div class="team-bio">React Native · Supabase · API integration and core app architecture.</div>
+            <div class="team-bio">Built the core app — auth, scanner, onboarding, profile, and Supabase integration.</div>
             <div class="team-social"><a href="#">in</a><a href="#">gh</a></div>
           </div>
         </div>
-
-        <div class="team-card">
-          <div class="team-av">
-            <img src="img/team/neel.jpeg" alt="Neel" style="width:100%; height:100%; object-fit:cover;">
-          </div>
+        <div class="team-card reveal pop d1">
+          <div class="team-av tc2"><img src="img/team/neel.jpeg" alt="Neel" onerror="this.style.display='none';this.parentNode.innerHTML='<span class=team-initials>N</span>'"></div>
           <div class="team-info">
             <div class="team-name">Neel</div>
-            <div class="team-role">FrontEnd Developer</div>
-            <div class="team-bio">Expo · Component systems · Bridging design and development on mobile.</div>
+            <div class="team-role">Frontend Developer</div>
+            <div class="team-bio">Owns the UI components and makes sure everything looks good across devices.</div>
             <div class="team-social"><a href="#">in</a><a href="#">gh</a></div>
           </div>
         </div>
-
-        <div class="team-card">
-          <div class="team-av">
-            <img src="img/team/Manmeet.jpeg" alt="Manmeet" style="width:100%; height:100%; object-fit:cover;">
-          </div>
+        <div class="team-card reveal pop d2">
+          <div class="team-av tc3"><img src="img/team/Manmeet.jpeg" alt="Manmeet" onerror="this.style.display='none';this.parentNode.innerHTML='<span class=team-initials>M</span>'"></div>
           <div class="team-info">
             <div class="team-name">Manmeet</div>
             <div class="team-role">AR Developer</div>
-            <div class="team-bio">Unity · ARKit · Building the augmented reality plant placement experience.</div>
+            <div class="team-bio">Built the AR plant placement feature using ARKit and Unity integration.</div>
             <div class="team-social"><a href="#">in</a><a href="#">gh</a></div>
           </div>
         </div>
-
-        <div class="team-card">
-          <div class="team-av">
-            <img src="img/team/shubhams.jpeg" alt="Shubham" style="width:100%; height:100%; object-fit:cover;">
-          </div>
+        <div class="team-card reveal pop d3">
+          <div class="team-av tc4"><img src="img/team/shubhams.jpeg" alt="Shubham" onerror="this.style.display='none';this.parentNode.innerHTML='<span class=team-initials>S</span>'"></div>
           <div class="team-info">
             <div class="team-name">Shubham</div>
             <div class="team-role">Backend Developer</div>
-            <div class="team-bio">GPT-4o integration · Dashboard · Chatbot features and server-side logic.</div>
+            <div class="team-bio">Wired in the GPT-4o chatbot and handles all the server-side logic.</div>
             <div class="team-social"><a href="#">in</a><a href="#">gh</a></div>
           </div>
         </div>
-
-        <div class="team-card">
-          <div class="team-av">
-            <img src="img/team/gurdit.jpeg" alt="Gurdit" style="width:100%; height:100%; object-fit:cover;">
-          </div>
+        <div class="team-card reveal pop d4">
+          <div class="team-av tc5"><img src="img/team/gurdit.jpeg" alt="Gurdit" style="object-fit:contain;object-position:center;" onerror="this.style.display='none';this.parentNode.innerHTML='<span class=team-initials>G</span>'"></div>
           <div class="team-info">
             <div class="team-name">Gurdit</div>
             <div class="team-role">IoT Developer</div>
-            <div class="team-bio">Bluetooth sensors · Hardware integration · Real-time soil data pipeline.</div>
+            <div class="team-bio">Built the Bluetooth sensor pipeline — from hardware pairing to live data on screen.</div>
             <div class="team-social"><a href="#">in</a><a href="#">gh</a></div>
           </div>
         </div>
       </div>
 
-      <div class="team-section-label">Designers</div>
-      <div class="team-grid-6">
-        <div class="team-card">
-          <div class="team-av"><img src="img/team/ravkaran.jpeg" alt="Designer 2" style="width:100%; height:100%; object-fit:cover;"></div>
+      <div class="team-label">Designers</div>
+      <div class="team-grid team-grid-des">
+        <div class="team-card reveal pop">
+          <div class="team-av tc6"><img src="img/team/ravkaran.jpeg" alt="Ravkaran" onerror="this.style.display='none';this.parentNode.innerHTML='<span class=team-initials>R</span>'"></div>
           <div class="team-info">
             <div class="team-name">Ravkaran</div>
             <div class="team-role">Visual Designer</div>
-            <div class="team-bio">Brand identity, colour systems, and visual language across all touchpoints.</div>
+            <div class="team-bio">Owns the brand — colours, type, and how the whole thing feels visually.</div>
             <div class="team-social"><a href="#">in</a></div>
           </div>
         </div>
-
-        <div class="team-card">
-          <div class="team-av"><img src="img/team/naveen.jpeg" alt="Designer 3" style="width:100%; height:100%; object-fit:cover;"></div>
+        <div class="team-card reveal pop d1">
+          <div class="team-av tc7"><img src="img/team/naveen.jpeg" alt="Naveen" onerror="this.style.display='none';this.parentNode.innerHTML='<span class=team-initials>N</span>'"></div>
           <div class="team-info">
             <div class="team-name">Naveen</div>
             <div class="team-role">UI Designer</div>
-            <div class="team-bio">Screen layouts and component libraries consistency.</div>
+            <div class="team-bio">Designed every screen — layouts, components, spacing, the works.</div>
             <div class="team-social"><a href="#">in</a></div>
           </div>
         </div>
-
-        <div class="team-card">
-          <div class="team-av"><img src="img/team/sahill.jpeg" alt="Designer 4" style="width:100%; height:100%; object-fit:cover;"></div>
+         <div class="team-card reveal pop d1">
+          <div class="team-av tc7"><img src="img/team/Uzman.png" alt="Naveen" onerror="this.style.display='none';this.parentNode.innerHTML='<span class=team-initials>N</span>'"></div>
+          <div class="team-info">
+            <div class="team-name">Uzman</div>
+            <div class="team-role">UI/UX Designer</div>
+            <div class="team-bio">Designed every screen — Researched in UX, layouts, components, spacing, the works.</div>
+            <div class="team-social"><a href="#">in</a></div>
+          </div>
+        </div>
+        <div class="team-card reveal pop d2">
+          <div class="team-av tc8"><img src="img/team/sahill.jpeg" alt="Sahil" onerror="this.style.display='none';this.parentNode.innerHTML='<span class=team-initials>S</span>'"></div>
           <div class="team-info">
             <div class="team-name">Sahil</div>
             <div class="team-role">Motion Designer</div>
-            <div class="team-bio">Animations and transitions that bring the app to life.</div>
+            <div class="team-bio">Handles the animations and transitions that make the app feel alive.</div>
             <div class="team-social"><a href="#">in</a></div>
           </div>
         </div>
-
-        <div class="team-card">
-          <div class="team-av"><img src="img/team/mann.jpeg" alt="Designer 5" style="width:100%; height:100%; object-fit:cover;"></div>
+        <div class="team-card reveal pop d3">
+          <div class="team-av tc9"><img src="img/team/mann.jpeg" alt="Mann" onerror="this.style.display='none';this.parentNode.innerHTML='<span class=team-initials>M</span>'"></div>
           <div class="team-info">
             <div class="team-name">Mann</div>
             <div class="team-role">UX Researcher</div>
-            <div class="team-bio">User testing and journey mapping for better engagement.</div>
+            <div class="team-bio">Talks to users, runs tests, and makes sure we're building the right thing.</div>
             <div class="team-social"><a href="#">in</a></div>
           </div>
         </div>
-
-        <div class="team-card">
-          <div class="team-av"><img src="img/team/shubham.jpeg" alt="Designer 6" style="width:100%; height:100%; object-fit:cover;"></div>
+        <div class="team-card reveal pop d4">
+          <div class="team-av tc10"><img src="img/team/shubham.jpeg" alt="Shubham" onerror="this.style.display='none';this.parentNode.innerHTML='<span class=team-initials>S</span>'"></div>
           <div class="team-info">
             <div class="team-name">Shubham</div>
             <div class="team-role">Interaction Designer</div>
-            <div class="team-bio">Accessibility standards and prototype development.</div>
+            <div class="team-bio">Makes sure every tap and swipe feels exactly right — accessibility included.</div>
             <div class="team-social"><a href="#">in</a></div>
           </div>
         </div>
-
       </div>
     </div>
   </section>
-</div>
+
+  <section class="cta-sec">
+    <h2 class="sec-title">Want to use Semina?</h2>
+    <p class="sec-sub" style="color:rgba(255,255,255,.75);">We're still in early access — leave your email and we'll reach out when it's ready.</p>
+    <div class="cta-form">
+      <input type="email" placeholder="your@email.com">
+      <button type="button">Join Waitlist</button>
+    </div>
+  </section>
+</div><!-- /team -->
+
+<!-- ════════ BUSINESS MODEL ════════ -->
 <div id="page-business" class="page">
   <div class="bm-hero">
-    <p class="section-eyebrow">Business Model</p>
-    <h2 class="section-title">How Semina Creates Value</h2>
-    <p class="section-sub">A multi-layered model built on recurring subscriptions, hardware, and enterprise partnerships — rooted in genuine outcomes for plant parents worldwide.</p>
+    <p class="eyebrow">How We Work</p>
+    <h2 class="sec-title">The Business Behind Semina</h2>
+    <p class="sec-sub">Subscriptions, hardware, and enterprise tools — three revenue streams that build on each other.</p>
   </div>
+
   <div class="bm-block" style="background:var(--bg);">
     <div class="section-inner">
-      <p class="section-eyebrow">Our Foundation</p>
-      <h2 class="section-title">Three Core Pillars</h2>
-      <div class="bm-3col">
-        <div class="bm-pillar">
-          <div class="bm-pillar-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12" y2="18"/></svg></div>
-          <div class="bm-ptitle">Mobile Software</div>
-          <div class="bm-pdesc">A recurring subscription app with plant diagnostics, personalised care schedules, and community access. High margin, low churn.</div>
+      <p class="eyebrow reveal">The Foundation</p>
+      <h2 class="sec-title reveal d1">Three ways we make money</h2>
+      <p class="sec-sub reveal d2" style="margin-bottom:44px;">Each one reinforces the others — more hardware users means more subscribers, and more data makes the product better.</p>
+      <div class="pillars">
+        <div class="pillar reveal pop">
+          <div class="pillar-icon"><svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12" y2="18"/></svg></div>
+          <div class="pillar-title">App Subscriptions</div>
+          <div class="pillar-desc">Monthly and annual plans give users the full Semina experience — diagnostics, personalised care plans, and community. High margin, low churn.</div>
         </div>
-        <div class="bm-pillar">
-          <div class="bm-pillar-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><circle cx="12" cy="20" r="1" fill="var(--green)"/></svg></div>
-          <div class="bm-ptitle">Hardware Sensors</div>
-          <div class="bm-pdesc">Smart sensor kits sold direct-to-consumer. Hardware deepens user engagement and drives long-term retention.</div>
+        <div class="pillar reveal pop d2">
+          <div class="pillar-icon"><svg viewBox="0 0 24 24"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><circle cx="12" cy="20" r="1.5" fill="currentColor"/></svg></div>
+          <div class="pillar-title">Sensor Hardware</div>
+          <div class="pillar-desc">Bluetooth sensor kits sold direct and through retail. Each hardware user becomes a long-term subscriber — the kit locks them into the ecosystem.</div>
         </div>
-        <div class="bm-pillar">
-          <div class="bm-pillar-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg></div>
-          <div class="bm-ptitle">Enterprise</div>
-          <div class="bm-pdesc">White-label platform for nurseries and botanical gardens. API access for research institutions and agri-tech partners.</div>
+        <div class="pillar reveal pop d4">
+          <div class="pillar-icon"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg></div>
+          <div class="pillar-title">Enterprise Licences</div>
+          <div class="pillar-desc">A white-label version for nurseries, botanical gardens, and urban farms. Annual contracts, higher margins, and a credibility signal for the consumer product.</div>
         </div>
       </div>
     </div>
   </div>
+
   <div class="bm-block" style="background:white;">
     <div class="section-inner">
-      <p class="section-eyebrow">Pricing</p>
-      <h2 class="section-title">Simple Plans</h2>
-      <div class="pricing-grid">
-        <div class="pricing-card">
-          <div class="pricing-tier">Seedling</div><div class="pricing-price">$0</div><div class="pricing-period">Free forever</div>
-          <ul class="pricing-features"><li>Up to 5 plants</li><li>Basic identification</li><li>Community access</li></ul>
-          <button class="pricing-btn">Get Started</button>
+      <p class="eyebrow reveal">Pricing</p>
+      <h2 class="sec-title reveal d1">Start free, upgrade when ready</h2>
+      <p class="sec-sub reveal d2" style="margin-bottom:44px;">No credit card needed to get started. Cancel any time.</p>
+      <div class="plans">
+        <div class="plan reveal">
+          <div class="plan-tier">Seedling</div>
+          <div class="plan-price">$0</div>
+          <div class="plan-period">Free — no card needed</div>
+          <ul class="plan-feats">
+            <li>Up to 5 plants</li><li>Basic identification</li>
+            <li>Community access</li><li>Weekly reminders</li>
+          </ul>
+          <button class="plan-btn">Get Started Free</button>
         </div>
-        <div class="pricing-card featured">
-          <div class="pricing-pop">Most Popular</div><div class="pricing-tier">Grower</div><div class="pricing-price">$9</div><div class="pricing-period">per month</div>
-          <ul class="pricing-features"><li>Unlimited tracking</li><li>Advanced diagnostics</li><li>Sensor integration</li></ul>
-          <button class="pricing-btn">Start Trial</button>
+        <div class="plan featured reveal d2">
+          <div class="plan-pop">Most Popular</div>
+          <div class="plan-tier">Grower</div>
+          <div class="plan-price">$9</div>
+          <div class="plan-period">per month, billed annually</div>
+          <ul class="plan-feats">
+            <li>Unlimited plants</li><li>Full diagnostics</li>
+            <li>Sensor integration</li><li>AR placement</li><li>Priority support</li>
+          </ul>
+          <button class="plan-btn">Try Free for 14 Days</button>
         </div>
-        <div class="pricing-card">
-          <div class="pricing-tier">Botanist</div><div class="pricing-price">$24</div><div class="pricing-period">per month</div>
-          <ul class="pricing-features"><li>Everything in Grower</li><li>Multiple locations</li><li>API access</li></ul>
-          <button class="pricing-btn">Contact Sales</button>
+        <div class="plan reveal d4">
+          <div class="plan-tier">Botanist</div>
+          <div class="plan-price">$24</div>
+          <div class="plan-period">per month, billed annually</div>
+          <ul class="plan-feats">
+            <li>Everything in Grower</li><li>Multiple locations</li>
+            <li>Team access</li><li>API</li><li>Reports &amp; exports</li>
+          </ul>
+          <button class="plan-btn">Contact Sales</button>
         </div>
       </div>
     </div>
   </div>
-</div><footer>
+
+  <section class="cta-sec">
+    <h2 class="sec-title">Want to partner with us?</h2>
+    <p class="sec-sub" style="color:rgba(255,255,255,.75);">Whether you're an investor, a nursery, or just someone who wants in early — reach out.</p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+      <button class="btn btn-solid" style="background:white;color:var(--secondary);">Download Pitch Deck</button>
+      <button class="btn btn-ghost" style="border-color:rgba(255,255,255,.5);color:white;">Get in Touch</button>
+    </div>
+  </section>
+</div><!-- /business -->
+
+<!-- FOOTER -->
+<footer>
   <div class="footer-brand" onclick="showPage('home')">
-    <img src="data:image/png;base64,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" style="width:36px;height:36px;border-radius:50%;object-fit:cover;" /> SEMINA
+    <img src="data:image/png;base64,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" alt="Semina">
+    SEMINA
   </div>
-  <div class="footer-links-row">
+  <div class="footer-links">
     <a onclick="showPage('home')">Home</a>
     <a onclick="goFeatures()">Features</a>
     <a onclick="showPage('team')">Team</a>
     <a onclick="showPage('business')">Business Model</a>
     <a onclick="goEarlyAccess()">Early Access</a>
   </div>
-  <div class="footer-copy">© 2026 Semina. All rights reserved.</div>
+  <div class="footer-copy">© 2026 Semina · Langara College, Vancouver</div>
 </footer>
 
 <script>
-function showPage(id) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.getElementById('page-' + id).classList.add('active');
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-  setActiveNav(id);
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+  setNav(id);
+  setTimeout(initReveal,80);
 }
-function setActiveNav(id) {
-  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active-nav'));
-  const map = { home: 'nl-home', team: 'nl-team', business: 'nl-biz' };
-  if (map[id]) document.getElementById(map[id]).classList.add('active-nav');
+function setNav(id){
+  document.querySelectorAll('.nav-links a,.nav-mobile a').forEach(a=>a.classList.remove('active-nav'));
+  const m={home:'nl-home',team:'nl-team',business:'nl-biz'};
+  if(m[id]) document.getElementById(m[id]).classList.add('active-nav');
 }
-function goFeatures() {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+function goFeatures(){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.getElementById('page-home').classList.add('active');
-  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active-nav'));
-  document.getElementById('nl-features').classList.add('active-nav');
-  setTimeout(() => {
-    const el = document.getElementById('features-section');
-    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }, 60);
+  document.querySelectorAll('.nav-links a,.nav-mobile a').forEach(a=>a.classList.remove('active-nav'));
+  document.getElementById('nl-feat').classList.add('active-nav');
+  setTimeout(()=>{
+    const el=document.getElementById('feat-sec');
+    if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
+  },60);
 }
-function goEarlyAccess() {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+function goEarlyAccess(){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.getElementById('page-home').classList.add('active');
-  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active-nav'));
-  document.getElementById('nl-access').classList.add('active-nav');
-  setTimeout(() => {
-    const el = document.getElementById('early-access-section');
-    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }, 60);
+  document.querySelectorAll('.nav-links a,.nav-mobile a').forEach(a=>a.classList.remove('active-nav'));
+  document.getElementById('nl-acc').classList.add('active-nav');
+  setTimeout(()=>{
+    const el=document.getElementById('acc-sec');
+    if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
+  },60);
 }
-window.addEventListener('scroll', () => {
-  const homePage = document.getElementById('page-home');
-  if (!homePage.classList.contains('active')) return;
-  const scrollY = window.scrollY;
-  const featEl   = document.getElementById('features-section');
-  const accessEl = document.getElementById('early-access-section');
-  const featTop   = featEl   ? featEl.offsetTop   - 90 : Infinity;
-  const featBot   = featEl   ? featTop + featEl.offsetHeight : Infinity;
-  const accessTop = accessEl ? accessEl.offsetTop - 90 : Infinity;
-  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active-nav'));
-  if (scrollY >= accessTop) {
-    document.getElementById('nl-access').classList.add('active-nav');
-  } else if (scrollY >= featTop && scrollY < featBot) {
-    document.getElementById('nl-features').classList.add('active-nav');
-  } else {
-    document.getElementById('nl-home').classList.add('active-nav');
-  }
-});
+let mobOpen=false;
+function toggleMobile(){
+  mobOpen=!mobOpen;
+  document.getElementById('mob').style.display=mobOpen?'flex':'none';
+  document.getElementById('mob-overlay').style.display=mobOpen?'block':'none';
+}
+function closeMob(){
+  mobOpen=false;
+  document.getElementById('mob').style.display='none';
+  document.getElementById('mob-overlay').style.display='none';
+}
+
+/* scroll spy + progress */
+window.addEventListener('scroll',()=>{
+  const home=document.getElementById('page-home');
+  const y=window.scrollY;
+  document.getElementById('nav').classList.toggle('scrolled',y>10);
+  if(home.classList.contains('active')){
+    const f=document.getElementById('feat-sec');
+    const a=document.getElementById('acc-sec');
+    const ft=f?f.offsetTop-80:Infinity,fb=ft+(f?f.offsetHeight:0),at=a?a.offsetTop-80:Infinity;
+    document.querySelectorAll('.nav-links a').forEach(x=>x.classList.remove('active-nav'));
+    if(y>=at) document.getElementById('nl-acc').classList.add('active-nav');
+    else if(y>=ft&&y<fb) document.getElementById('nl-feat').classList.add('active-nav');
+    else 
+function openPDF(){
+  document.getElementById('pdf-iframe').src='pdf/Semina Project Proposal.pdf';
+  document.getElementById('pdf-modal').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closePDF(){
+  document.getElementById('pdf-modal').classList.remove('open');
+  document.getElementById('pdf-iframe').src='';
+  document.body.style.overflow='';
+}
+function handleModalClick(e){
+  if(e.target===document.getElementById('pdf-modal')) closePDF();
+}
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') closePDF(); });
+
 document.getElementById('nl-home').classList.add('active-nav');
+  }
+  const doc=document.documentElement;
+  const tot=doc.scrollHeight-doc.clientHeight;
+  document.getElementById('pb').style.width=(tot>0?(y/tot*100):0)+'%';
+});
+
+/* IntersectionObserver reveal — triggers both ways */
+function initReveal(){
+  const io=new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting) e.target.classList.add('in');
+      else e.target.classList.remove('in');
+    });
+  },{threshold:0.1,rootMargin:'0px 0px -30px 0px'});
+  document.querySelectorAll('.page.active .reveal').forEach(el=>io.observe(el));
+}
+
+
+function openPDF(){
+  document.getElementById('pdf-iframe').src='pdf/Semina Project Proposal.pdf';
+  document.getElementById('pdf-modal').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closePDF(){
+  document.getElementById('pdf-modal').classList.remove('open');
+  document.getElementById('pdf-iframe').src='';
+  document.body.style.overflow='';
+}
+function handleModalClick(e){
+  if(e.target===document.getElementById('pdf-modal')) closePDF();
+}
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') closePDF(); });
+
+document.getElementById('nl-home').classList.add('active-nav');
+initReveal();
 </script>
+
+<!-- PDF VIEWER MODAL -->
+<div id="pdf-modal" onclick="handleModalClick(event)">
+  <div class="pdf-modal-box">
+    <div class="pdf-modal-header">
+      <div class="pdf-modal-title">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F75555" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        Semina Project Proposal
+      </div>
+      <div class="pdf-modal-actions">
+        <a class="pdf-modal-dl" href="pdf/Semina Project Proposal.pdf" download>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
+          Download
+        </a>
+        <button class="pdf-modal-close" onclick="closePDF()">✕</button>
+      </div>
+    </div>
+    <iframe id="pdf-iframe" src="" title="Semina Proposal"></iframe>
+  </div>
+</div>
+
 </body>
 </html>
