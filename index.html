@@ -5,189 +5,700 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Semina — Grow With Confidence</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<<<<<<< Updated upstream
 <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,300&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+=======
+<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900&display=swap" rel="stylesheet">
+<style>
+/* ── TOKENS ── */
+:root{
+  --primary:#266427;--secondary:#006641;--success:#12D18E;
+  --bg:#f2f7f3;--white:#ffffff;--text:#0d1f17;
+  --mid:#3a5249;--light:#6b8a7a;--border:#d4e8da;
+  --green-light:#e8f7ef;--green-mid:#c8eedd;--icon-bg:#e6f4ec;
+  --dark1:#181A20;--dark3:#1F222A;--error:#F75555;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Lato',sans-serif;font-weight:400;background:var(--bg);
+  color:var(--text);line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+
+/* ── PROGRESS BAR ── */
+#pb{position:fixed;top:0;left:0;height:3px;width:0%;
+  background:linear-gradient(90deg,var(--secondary),var(--success));z-index:9999;pointer-events:none}
+
+/* ── NAV ── */
+nav{
+  position:sticky;top:0;z-index:500;height:64px;
+  padding:0 24px;
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(255,255,255,0.96);backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);transition:box-shadow .3s;
+}
+nav.scrolled{box-shadow:0 4px 20px rgba(13,31,23,.08)}
+.nav-brand{display:flex;align-items:center;gap:10px;cursor:pointer;text-decoration:none;flex-shrink:0}
+.nav-brand img{width:34px;height:34px;border-radius:50%;object-fit:cover;display:block;flex-shrink:0}
+.nav-brand-name{font-size:17px;font-weight:900;color:var(--text);letter-spacing:.04em;line-height:1}
+.nav-links{display:none;gap:28px;list-style:none;align-items:center}
+.nav-links a{font-size:14px;font-weight:700;color:var(--mid);text-decoration:none;cursor:pointer;
+  padding-bottom:3px;border-bottom:2px solid transparent;transition:color .2s,border-color .2s}
+.nav-links a:hover,.nav-links a.active-nav{color:var(--secondary);border-bottom-color:var(--success)}
+.nav-right{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.nav-cta{background:var(--secondary);color:#fff;font-family:'Lato',sans-serif;
+  font-weight:700;font-size:13px;letter-spacing:.05em;text-transform:uppercase;
+  padding:9px 20px;border-radius:6px;border:none;cursor:pointer;
+  transition:background .2s,transform .15s;white-space:nowrap}
+.nav-cta:hover{background:var(--primary);transform:translateY(-1px)}
+.nav-ham{display:flex;flex-direction:column;gap:5px;cursor:pointer;
+  background:none;border:none;padding:4px}
+.nav-ham span{display:block;width:22px;height:2px;background:var(--text);
+  border-radius:2px;transition:.3s}
+
+/* ── MOBILE MENU ── */
+#mob-overlay{display:none;position:fixed;inset:0;top:64px;
+  background:rgba(0,0,0,.4);z-index:9997}
+.nav-mobile{
+  display:none;
+  flex-direction:column;
+  position:fixed;
+  top:64px;left:0;right:0;width:100vw;
+  z-index:9998;
+  background:#ffffff;
+  box-shadow:0 12px 40px rgba(13,31,23,.2);
+  border-top:2px solid var(--border);
+}
+.nav-mobile a{
+  font-size:17px;font-weight:700;color:var(--text);
+  padding:18px 24px;cursor:pointer;
+  border-bottom:1px solid var(--border);
+  display:block;width:100%;
+  background:#ffffff;
+  transition:background .15s,color .15s;
+  margin:0;
+}
+.nav-mobile a:last-child{border-bottom:none}
+.nav-mobile a:hover,.nav-mobile a.active-nav{background:var(--green-light);color:var(--secondary)}
+
+/* ── SHARED ── */
+section{padding:80px 24px}
+.inner{max-width:1160px;margin:0 auto}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--secondary);margin-bottom:12px;text-align:center}
+.sec-title{font-size:clamp(26px,5vw,42px);font-weight:900;color:var(--text);
+  margin-bottom:12px;line-height:1.08;letter-spacing:-.02em;text-align:center}
+.sec-sub{font-size:16px;font-weight:300;line-height:1.72;color:var(--light);
+  max-width:560px;margin:0 auto 52px;text-align:center}
+.btn{font-family:'Lato',sans-serif;font-weight:700;font-size:14px;letter-spacing:.05em;
+  text-transform:uppercase;padding:14px 28px;border-radius:6px;border:none;cursor:pointer;
+  display:inline-flex;align-items:center;gap:8px;transition:all .2s;
+  min-height:48px;text-decoration:none;justify-content:center}
+.btn-solid{background:var(--secondary);color:#fff}
+.btn-solid:hover{background:var(--primary);transform:translateY(-2px)}
+.btn-ghost{background:transparent;color:var(--secondary);border:2px solid var(--success)}
+.btn-ghost:hover{background:var(--green-light);transform:translateY(-2px)}
+
+/* ── REVEAL ── */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .65s ease,transform .65s ease}
+.reveal.from-left{transform:translateX(-40px)}
+.reveal.from-right{transform:translateX(40px)}
+.reveal.pop{transform:scale(.94) translateY(14px)}
+.reveal.in{opacity:1;transform:none!important}
+.d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}
+.d4{transition-delay:.32s}.d5{transition-delay:.40s}
+@keyframes float1{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+@keyframes float2{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.float-a{animation:float1 6s ease-in-out infinite}
+.float-b{animation:float2 7.5s ease-in-out infinite 1.2s}
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+.a1{animation:fadeUp .65s .05s ease both}.a2{animation:fadeUp .65s .12s ease both}
+.a3{animation:fadeUp .65s .20s ease both}.a4{animation:fadeUp .65s .28s ease both}
+.a5{animation:fadeUp .65s .36s ease both}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.75)}}
+
+/* ══ HERO ══ */
+#hero{background:var(--bg);padding:0}
+.hero-inner{
+  display:flex;flex-direction:column;gap:40px;
+  padding:56px 24px 64px;max-width:1160px;margin:0 auto;
+}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;
+  background:var(--green-light);border:1px solid var(--green-mid);
+  color:var(--secondary);font-size:11px;font-weight:700;letter-spacing:.12em;
+  text-transform:uppercase;padding:6px 14px;border-radius:4px;margin-bottom:18px;width:fit-content}
+.hero-dot{width:6px;height:6px;border-radius:50%;background:var(--success);animation:pulse 2s ease infinite}
+.hero-title{font-size:clamp(40px,9vw,76px);font-weight:900;line-height:.96;
+  letter-spacing:-.03em;color:var(--text);margin-bottom:4px}
+.hero-title-green{font-size:clamp(40px,9vw,76px);font-weight:900;line-height:.96;
+  letter-spacing:-.03em;color:var(--secondary);margin-bottom:20px}
+.hero-sub{font-size:17px;font-weight:300;line-height:1.68;color:var(--light);
+  max-width:460px;margin-bottom:28px}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:28px}
+.hero-stores{display:flex;gap:10px;flex-wrap:wrap}
+.btn-store{background:var(--dark1);color:#fff;border:1px solid rgba(255,255,255,.15);
+  padding:10px 18px;border-radius:8px;gap:8px;min-height:48px;
+  display:inline-flex;align-items:center;cursor:pointer;transition:all .2s}
+.btn-store:hover{background:var(--dark3);transform:translateY(-2px)}
+.btn-store-sub{font-size:9px;font-weight:400;letter-spacing:.06em;text-transform:uppercase;
+  opacity:.65;display:block;line-height:1}
+.btn-store-name{font-size:15px;font-weight:900;display:block}
+.hero-img{display:flex;align-items:center;justify-content:center}
+.hero-img img{width:100%;height:auto;max-width:420px;
+  filter:drop-shadow(0 24px 48px rgba(0,102,65,.16));
+  transition:transform .6s cubic-bezier(.22,.61,.36,1)}
+.hero-img:hover img{transform:translateY(-8px) scale(1.01)}
+
+/* ══ FEATURES ══ */
+#features{background:var(--bg)}
+.features-grid{display:grid;grid-template-columns:1fr;gap:20px}
+.feature-card{
+  background:linear-gradient(145deg,#f0faf4,#e4f5eb);
+  border-radius:20px;padding:32px 24px 28px;
+  display:flex;flex-direction:column;align-items:center;text-align:center;
+  transition:transform .3s,box-shadow .3s;
+}
+.feature-card:hover{transform:translateY(-6px);box-shadow:0 20px 48px rgba(0,102,65,.1)}
+.feature-card img{width:85%;height:auto;max-height:200px;
+  object-fit:contain;margin-bottom:20px;background:transparent;
+  transition:transform .4s cubic-bezier(.22,.61,.36,1)}
+.feature-card:hover img{transform:translateY(-6px) scale(1.03)}
+.feature-name{font-size:18px;font-weight:900;color:var(--text);margin-bottom:8px}
+.feature-desc{font-size:14px;color:var(--light);line-height:1.65}
+
+/* ══ BENEFITS (Why) ══ */
+#why{background:#fff}
+.benefit-block{display:flex;flex-direction:column;gap:36px;
+  max-width:1060px;margin:0 auto 72px}
+.benefit-block:last-child{margin-bottom:0}
+.benefit-img{display:flex;align-items:center;justify-content:center}
+.benefit-img img{width:100%;max-width:480px;height:auto;min-height:260px;
+  object-fit:contain;background:transparent;
+  filter:drop-shadow(0 18px 36px rgba(0,102,65,.12));
+  transition:transform .5s cubic-bezier(.22,.61,.36,1)}
+.benefit-img:hover img{transform:translateY(-10px) scale(1.02)}
+.benefit-icon{width:48px;height:48px;border-radius:12px;background:var(--secondary);
+  display:flex;align-items:center;justify-content:center;margin-bottom:14px}
+.benefit-icon svg{width:22px;height:22px;stroke:#fff;stroke-width:2;fill:none;
+  stroke-linecap:round;stroke-linejoin:round}
+.benefit-title{font-size:clamp(20px,4vw,28px);font-weight:900;color:var(--text);
+  margin-bottom:10px;line-height:1.15;letter-spacing:-.015em}
+.benefit-body{font-size:15px;font-weight:300;color:var(--light);line-height:1.75;margin-bottom:18px}
+.checklist{list-style:none;display:flex;flex-direction:column;gap:10px}
+.checklist li{display:flex;align-items:center;gap:10px;font-size:15px;font-weight:600;color:var(--mid)}
+.check-circle{width:22px;height:22px;border-radius:50%;border:2px solid var(--secondary);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  color:var(--secondary);font-size:11px;font-weight:900}
+
+/* ══ TEAM ══ */
+#team{background:var(--bg)}
+.team-divider{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--secondary);margin-bottom:16px;margin-top:40px;
+  display:flex;align-items:center;gap:12px}
+.team-divider::after{content:'';flex:1;height:1px;background:var(--border)}
+.team-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.team-card{background:#fff;border-radius:14px;border:1px solid var(--border);
+  overflow:hidden;transition:box-shadow .3s,transform .3s,border-color .3s}
+.team-card:hover{box-shadow:0 14px 40px rgba(13,31,23,.1);
+  transform:translateY(-5px);border-color:var(--green-mid)}
+.team-av{width:100%;aspect-ratio:1/1;overflow:hidden;background:#fff;
+  display:flex;align-items:center;justify-content:center}
+.team-av img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease}
+.team-card:hover .team-av img{transform:scale(1.05)}
+.team-initials{font-size:26px;font-weight:900;color:rgba(13,31,23,.25)}
+.team-info{padding:12px 12px 14px}
+.team-name{font-size:14px;font-weight:900;color:var(--text);margin-bottom:2px}
+.team-role{font-size:11px;color:var(--secondary);font-weight:700;margin-bottom:5px}
+.team-bio{font-size:11px;color:var(--light);line-height:1.5;margin-bottom:8px}
+.team-social{display:flex;gap:6px}
+.social-btn{width:28px;height:28px;border-radius:6px;background:var(--icon-bg);
+  display:flex;align-items:center;justify-content:center;text-decoration:none;
+  transition:background .2s;cursor:pointer;border:none}
+.social-btn:hover{background:var(--secondary)}
+.social-btn:hover svg path{fill:#fff}
+.social-btn svg{width:14px;height:14px;display:block}
+
+/* ══ BUSINESS MODEL ══ */
+#business{background:#fff}
+.pillars{display:grid;grid-template-columns:1fr;gap:18px;max-width:1060px;margin:0 auto}
+.pillar{background:var(--bg);border-radius:16px;border:1px solid var(--border);
+  padding:28px 24px;transition:box-shadow .3s,transform .3s,border-color .3s}
+.pillar:hover{box-shadow:0 14px 40px rgba(13,31,23,.08);
+  transform:translateY(-4px);border-color:var(--green-mid)}
+.pillar-icon{width:48px;height:48px;border-radius:12px;background:var(--icon-bg);
+  border:1px solid var(--green-mid);display:flex;align-items:center;
+  justify-content:center;margin-bottom:14px}
+.pillar-icon svg{width:22px;height:22px;stroke:var(--secondary);fill:none;
+  stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.pillar-title{font-size:17px;font-weight:900;color:var(--text);margin-bottom:8px}
+.pillar-desc{font-size:14px;font-weight:300;color:var(--light);line-height:1.7}
+.plans{display:grid;grid-template-columns:1fr;gap:18px;max-width:860px;margin:48px auto 0}
+.plan{background:var(--bg);border-radius:14px;border:2px solid var(--border);
+  padding:28px 24px;position:relative;transition:box-shadow .3s,transform .3s}
+.plan:hover{box-shadow:0 14px 40px rgba(13,31,23,.08);transform:translateY(-3px)}
+.plan.featured{border-color:var(--secondary);background:var(--dark1)}
+.plan-pop{position:absolute;top:-12px;left:50%;transform:translateX(-50%);
+  background:var(--secondary);color:#fff;font-size:10px;font-weight:900;
+  letter-spacing:.07em;text-transform:uppercase;padding:4px 14px;border-radius:4px;white-space:nowrap}
+.plan-tier{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--secondary);margin-bottom:6px}
+.plan.featured .plan-tier{color:var(--green-mid)}
+.plan-price{font-size:40px;font-weight:900;color:var(--text);margin-bottom:3px;letter-spacing:-.03em}
+.plan.featured .plan-price{color:#fff}
+.plan-period{font-size:13px;color:var(--light);margin-bottom:18px}
+.plan.featured .plan-period{color:rgba(255,255,255,.45)}
+.plan-feats{list-style:none;display:flex;flex-direction:column;gap:8px;margin-bottom:22px}
+.plan-feats li{display:flex;align-items:center;gap:8px;font-size:14px;color:var(--mid)}
+.plan.featured .plan-feats li{color:rgba(255,255,255,.8)}
+.plan-feats li::before{content:"✓";font-weight:900;color:var(--secondary);flex-shrink:0}
+.plan.featured .plan-feats li::before{color:var(--green-mid)}
+.plan-btn{width:100%;padding:12px;border-radius:6px;border:2px solid var(--secondary);
+  background:transparent;color:var(--secondary);font-family:'Lato',sans-serif;
+  font-size:13px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;
+  cursor:pointer;transition:all .2s;min-height:46px}
+.plan-btn:hover{background:var(--green-light)}
+.plan.featured .plan-btn{background:var(--secondary);color:#fff}
+.plan.featured .plan-btn:hover{background:var(--primary)}
+
+/* ══ EARLY ACCESS ══ */
+#access{background:linear-gradient(135deg,var(--secondary),var(--primary));
+  text-align:center;padding:80px 24px;position:relative;overflow:hidden}
+#access::before{content:'';position:absolute;inset:0;pointer-events:none;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E")}
+#access .eyebrow{color:rgba(255,255,255,.65)}
+#access .sec-title{color:#fff}
+#access .sec-sub{color:rgba(255,255,255,.75);margin-bottom:28px}
+.cta-inner{max-width:540px;margin:0 auto;position:relative;z-index:1}
+.cta-form{display:flex;flex-direction:column;gap:10px;max-width:420px;margin:0 auto 24px}
+.cta-form input{padding:14px 18px;font-size:15px;border:none;outline:none;border-radius:6px;
+  font-family:'Lato',sans-serif;background:#fff;color:var(--text)}
+.cta-form input::placeholder{color:#aaa}
+.cta-form button{padding:14px;background:var(--dark1);color:#fff;border-radius:6px;
+  font-family:'Lato',sans-serif;font-size:14px;font-weight:700;letter-spacing:.05em;
+  text-transform:uppercase;border:none;cursor:pointer;transition:background .2s;min-height:48px}
+.cta-form button:hover{background:#000}
+.store-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.btn-store-light{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);
+  color:#fff;padding:10px 18px;border-radius:8px;gap:8px;min-height:48px;
+  display:inline-flex;align-items:center;cursor:pointer;transition:all .2s}
+.btn-store-light:hover{background:rgba(255,255,255,.22);transform:translateY(-2px)}
+
+/* ══ PDF MODAL ══ */
+#pdf-modal{display:none;position:fixed;inset:0;z-index:99999;
+  background:rgba(0,0,0,.82);backdrop-filter:blur(6px);
+  align-items:center;justify-content:center;padding:20px}
+#pdf-modal.open{display:flex}
+.pdf-box{background:#fff;border-radius:14px;width:100%;max-width:900px;
+  height:90vh;display:flex;flex-direction:column;overflow:hidden;
+  box-shadow:0 32px 80px rgba(0,0,0,.4)}
+.pdf-head{display:flex;align-items:center;justify-content:space-between;
+  padding:14px 20px;border-bottom:1px solid var(--border);flex-shrink:0}
+.pdf-head-title{font-size:14px;font-weight:700;color:var(--text);
+  display:flex;align-items:center;gap:8px}
+.pdf-actions{display:flex;align-items:center;gap:8px}
+.pdf-dl{display:inline-flex;align-items:center;gap:6px;
+  background:var(--secondary);color:#fff;font-family:'Lato',sans-serif;
+  font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;
+  padding:7px 14px;border-radius:5px;text-decoration:none;transition:background .2s}
+.pdf-dl:hover{background:var(--primary)}
+.pdf-close{width:32px;height:32px;border-radius:7px;background:var(--bg);
+  border:1px solid var(--border);display:flex;align-items:center;
+  justify-content:center;cursor:pointer;font-size:17px;color:var(--mid);
+  transition:all .15s;line-height:1}
+.pdf-close:hover{background:var(--error);color:#fff;border-color:var(--error)}
+#pdf-iframe{flex:1;width:100%;border:none;background:#f5f5f5}
+
+/* ══ FOOTER ══ */
+footer{background:var(--dark1);color:rgba(255,255,255,.38);
+  padding:32px 24px;display:flex;flex-direction:column;
+  gap:16px;align-items:center;text-align:center}
+.footer-brand{font-size:16px;font-weight:900;color:#fff;letter-spacing:.04em;
+  display:flex;align-items:center;gap:9px;cursor:pointer}
+.footer-brand img{width:30px;height:30px;border-radius:50%;object-fit:cover}
+.footer-links{display:flex;gap:16px;flex-wrap:wrap;justify-content:center}
+.footer-links a{font-size:12px;font-weight:700;letter-spacing:.04em;color:rgba(255,255,255,.38);
+  text-decoration:none;cursor:pointer;transition:color .2s;text-transform:uppercase}
+.footer-links a:hover{color:var(--success)}
+
+/* ══ TABLET 640px+ ══ */
+@media(min-width:640px){
+  .hero-inner{padding:72px 40px 80px}
+  .hero-actions{flex-direction:row;align-items:center}
+  .hero-actions .btn{width:auto}
+  .hero-stores{flex-direction:row}
+  .features-grid{grid-template-columns:repeat(2,1fr)}
+  .feature-card img{max-height:260px}
+  .team-grid{grid-template-columns:repeat(3,1fr)}
+  .pillars{grid-template-columns:repeat(2,1fr)}
+  .plans{grid-template-columns:repeat(1,1fr)}
+  .cta-form{flex-direction:row;gap:0}
+  .cta-form input{border-radius:6px 0 0 6px;flex:1}
+  .cta-form button{border-radius:0 6px 6px 0;white-space:nowrap}
+  footer{flex-direction:row;justify-content:space-between;text-align:left;padding:32px 40px}
+}
+
+/* ══ DESKTOP 900px+ ══ */
+@media(min-width:900px){
+  section{padding:100px 56px}
+  nav{padding:0 56px}
+  .nav-links{display:flex}
+  .nav-ham{display:none}
+  .hero-inner{flex-direction:row;align-items:center;padding:80px 56px 100px;gap:56px;
+    min-height:calc(100vh - 64px)}
+  .hero-img{flex:1}.hero-content{flex:1}
+  .hero-img img{max-width:none;width:100%}
+  .features-grid{grid-template-columns:repeat(2,1fr);gap:28px}
+  .feature-card img{max-height:340px}
+  .benefit-block{flex-direction:row;align-items:center;gap:64px}
+  .benefit-block.rev{flex-direction:row-reverse}
+  .benefit-img,.benefit-text{flex:1}
+  .benefit-img img{min-height:320px;max-width:none}
+  .team-grid{grid-template-columns:repeat(5,1fr)}
+  .pillars{grid-template-columns:repeat(3,1fr)}
+  .plans{grid-template-columns:repeat(3,1fr)}
+  footer{padding:32px 56px;flex-direction:row;text-align:left}
+}
+
+@media(max-width:899px){
+  .benefit-block{flex-direction:column!important;gap:28px}
+  .benefit-block.rev{flex-direction:column!important}
+  .benefit-img img{max-width:100%;min-height:200px}
+}
+@media(max-width:639px){
+  .hero-actions{flex-direction:column}
+  .hero-actions .btn{width:100%}
+  .hero-stores{flex-direction:column}
+  .btn-store{width:100%;justify-content:center}
+  .plans{grid-template-columns:1fr}
+  .store-row{flex-direction:column;align-items:center}
+  .btn-store-light{width:100%;justify-content:center}
+}
+</style>
+>>>>>>> Stashed changes
 </head>
 <body>
 <div id="pb"></div>
 
 <!-- NAV -->
 <nav id="nav">
-  <div class="nav-brand" onclick="showPage('home')">
+  <a class="nav-brand" href="#hero">
     <img src="data:image/png;base64,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" alt="Semina">
     <span class="nav-brand-name">SEMINA</span>
-  </div>
-  <ul class="nav-links">
-    <li><a id="nl-home" onclick="showPage('home')">Home</a></li>
-    <li><a id="nl-feat" onclick="goFeatures()">Features</a></li>
-    <li><a id="nl-team" onclick="showPage('team')">Team</a></li>
-    <li><a id="nl-biz"  onclick="showPage('business')">Business Model</a></li>
-    <li><a id="nl-acc"  onclick="goEarlyAccess()">Early Access</a></li>
+  </a>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="#hero">Home</a></li>
+    <li><a href="#features">Features</a></li>
+    <li><a href="#team">Team</a></li>
+    <li><a href="#business">Business Model</a></li>
+    <li><a href="#access">Early Access</a></li>
   </ul>
   <div class="nav-right">
-    <button class="nav-cta" onclick="goEarlyAccess()">Join Waitlist</button>
-    <button class="nav-ham" id="ham" onclick="toggleMobile()">
+    <button class="nav-cta" onclick="scrollTo('access')">Join Waitlist</button>
+    <button class="nav-ham" id="ham" onclick="toggleMob()">
       <span></span><span></span><span></span>
     </button>
   </div>
 </nav>
 <div id="mob-overlay" onclick="closeMob()"></div>
 <nav class="nav-mobile" id="mob">
-  <a onclick="showPage('home');closeMob()">Home</a>
-  <a onclick="goFeatures();closeMob()">Features</a>
-  <a onclick="showPage('team');closeMob()">Team</a>
-  <a onclick="showPage('business');closeMob()">Business Model</a>
-  <a onclick="goEarlyAccess();closeMob()">Early Access</a>
+  <a onclick="scrollTo('hero');closeMob()">Home</a>
+  <a onclick="scrollTo('features');closeMob()">Features</a>
+  <a onclick="scrollTo('team');closeMob()">Team</a>
+  <a onclick="scrollTo('business');closeMob()">Business Model</a>
+  <a onclick="scrollTo('access');closeMob()">Early Access</a>
 </nav>
 
-<!-- ════════ HOME ════════ -->
-<div id="page-home" class="page active">
-
-  <!-- HERO -->
-  <div style="background:var(--bg);">
-    <section class="hero">
-      <div class="hero-content">
-        <div class="hero-badge a1"><div class="hero-dot"></div>Introducing Semina</div>
-        <h1 class="hero-title a2">Design Your</h1>
-        <h1 class="hero-title-green a3">Living Oasis</h1>
-        <p class="hero-sub a4">Plant care shouldn't be guesswork. Semina scans your plants, shows you where to put them in AR, and alerts you before anything goes wrong.</p>
-        <div class="hero-actions a4">
-          <button class="btn btn-solid" onclick="goEarlyAccess()">Get Started Free →</button>
-          <a class="btn btn-ghost" href="proposal/Semina-Proposal.pdf" download>
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><polyline points="9 15 12 18 15 15"/></svg>
-            Download Proposal
-          </a>
-         
-        </div>
-        
-      <div class="hero-img a5">
-        <img src="SVG/Home page.svg" alt="Semina App" class="float-a">
+<!-- ══ HERO ══ -->
+<section id="hero">
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="hero-badge a1"><div class="hero-dot"></div>Now in Early Access</div>
+      <h1 class="hero-title a2">Design Your</h1>
+      <h1 class="hero-title-green a3">Living Oasis</h1>
+      <p class="hero-sub a4">Semina helps you keep your plants alive. Scan them, place them in your space with AR, and get alerts before anything goes wrong.</p>
+      <div class="hero-actions a4">
+        <button class="btn btn-solid" onclick="scrollTo('access')">Get Started Free</button>
+        <a class="btn btn-ghost" href="/pdf/Semina%20Project%20Proposal.pdf" download="Semina-Proposal.pdf">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><polyline points="9 15 12 18 15 15"/></svg>
+          Download Proposal
+        </a>
       </div>
-    </section>
+      <div class="hero-stores a5">
+        <button class="btn-store" onclick="scrollTo('access')">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+          <div><span class="btn-store-sub">Download on the</span><span class="btn-store-name">App Store</span></div>
+        </button>
+        <button class="btn-store" onclick="scrollTo('access')">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M3.18 23.65c.3.17.64.22.99.13l12.47-7.2-2.79-2.79-10.67 9.86zM.58 1.3C.22 1.7 0 2.28 0 3.02v17.96c0 .74.22 1.32.59 1.72l.09.09 10.06-10.06v-.24L.67 1.21l-.09.09zm20.65 8.84l-2.87-1.65-3.14 3.14 3.14 3.14 2.9-1.67c.83-.48.83-1.25-.03-1.96zM3.18.35L15.65 7.55l-2.79 2.79L2.18.48C2.48.27 2.88.18 3.18.35z"/></svg>
+          <div><span class="btn-store-sub">Get it on</span><span class="btn-store-name">Google Play</span></div>
+        </button>
+      </div>
+    </div>
+    <div class="hero-img a5">
+      <img src="SVG/Home page.svg" alt="Semina App" class="float-a">
+    </div>
   </div>
+</section>
 
-  <!-- FEATURES -->
-  <section class="sec" id="feat-sec" style="background:var(--bg);">
-    <div class="section-inner">
-      <p class="eyebrow reveal">What Semina Does</p>
-      <h2 class="sec-title reveal d1">Built around how you actually care for plants</h2>
-      <p class="sec-sub reveal d2">Four core tools that cover everything — from the moment you spot a sick leaf to tracking its full recovery.</p>
-      <div class="features-grid">
-        <div class="feature-card reveal pop">
-          <div class="feature-num">01</div>
-          <img src="SVG/Scanner.svg" alt="Plant Health Scanner">
-          <div class="feature-name">Plant Health Scanner</div>
-          <div class="feature-desc">Point your camera at any plant and get an instant read on what's going on — species ID, care tips, and early warnings before problems get worse.</div>
-        </div>
-        <div class="feature-card reveal pop d1">
-          <div class="feature-num">02</div>
-          <img src="SVG/AR.svg" alt="AR Plant Placement">
-          <div class="feature-name">AR Plant Placement</div>
-          <div class="feature-desc">See exactly how a plant will look and fit in your space before you bring it home. Check light levels and spacing — no more bad placement surprises.</div>
-        </div>
-        <div class="feature-card reveal pop d2">
-          <div class="feature-num">03</div>
-          <img src="SVG/Sensor.svg" alt="Smart Sensor Kit">
-          <div class="feature-name">Smart Sensor Kit</div>
-          <div class="feature-desc">Bluetooth sensors sit in your soil and send live moisture, temperature, and nutrient readings straight to your phone. You'll know exactly when to water — not before, not after.</div>
-        </div>
-        <div class="feature-card reveal pop d3">
-          <div class="feature-num">04</div>
-          <img src="SVG/Logbook.svg" alt="Plant Logbook">
-          <div class="feature-name">Plant Logbook</div>
-          <div class="feature-desc">Every watering, repotting, and health note in one place. A full timeline for each plant so you can look back and actually learn what works.</div>
-        </div>
+<!-- ══ FEATURES ══ -->
+<section id="features">
+  <div class="inner">
+    <p class="eyebrow reveal">What You Can Do</p>
+    <h2 class="sec-title reveal d1">Four tools that make plant care easier</h2>
+    <p class="sec-sub reveal d2">Each one handles a different part of looking after your plants.</p>
+    <div class="features-grid">
+      <div class="feature-card reveal pop">
+        <img src="SVG/Scanner.svg" alt="Plant Health Scanner">
+        <div class="feature-name">Plant Health Scanner</div>
+        <div class="feature-desc">Point your camera at any plant and find out what it is, what it needs, and whether anything looks wrong.</div>
+      </div>
+      <div class="feature-card reveal pop d1">
+        <img src="SVG/AR.svg" alt="AR Plant Placement">
+        <div class="feature-name">AR Plant Placement</div>
+        <div class="feature-desc">See how a plant looks in your actual room before you buy it. Check if it fits and gets enough light.</div>
+      </div>
+      <div class="feature-card reveal pop d2">
+        <img src="SVG/Sensor.svg" alt="Smart Sensor Kit">
+        <div class="feature-name">Smart Sensor Kit</div>
+        <div class="feature-desc">Sensors sit in the soil and send readings to your phone. You get a notification when it is actually time to water.</div>
+      </div>
+      <div class="feature-card reveal pop d3">
+        <img src="SVG/Logbook.svg" alt="Plant Logbook">
+        <div class="feature-name">Plant Logbook</div>
+        <div class="feature-desc">Every watering, repotting, and health note saved in one place. Look back and see what worked for each plant.</div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- BENEFITS -->
-  <section class="sec" style="background:white;">
-    <div class="section-inner" style="margin-bottom:64px;">
-      <p class="eyebrow reveal">Why It Works</p>
-      <h2 class="sec-title reveal d1">Stop guessing. Start growing.</h2>
-      <p class="sec-sub reveal d2">Most plants die from overwatering or bad placement. Semina fixes both.</p>
-    </div>
+<!-- ══ WHY IT WORKS ══ -->
+<section id="why">
+  <div class="inner">
+    <p class="eyebrow reveal">Why people like it</p>
+    <h2 class="sec-title reveal d1">No more guessing</h2>
+    <p class="sec-sub reveal d2">Most plants die from too much water or the wrong spot. Semina helps you avoid both.</p>
 
     <div class="benefit-block reveal">
-      <div class="benefit-img from-left">
-        <img src="SVG/Sensor.svg" alt="Sensor monitoring" class="float-b">
-      </div>
+      <div class="benefit-img from-left"><img src="SVG/Sensor.svg" alt="Sensor" class="float-b"></div>
       <div class="benefit-text from-right">
         <div class="benefit-icon"><svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
-        <h3 class="benefit-title">Your plants tell you what they need</h3>
-        <p class="benefit-body">The sensors read your soil in real time and flag issues before they become visible. No more poking the soil and wondering — you'll get a notification when it's actually time to water.</p>
+        <h3 class="benefit-title">Know exactly when to water</h3>
+        <p class="benefit-body">The soil sensor reads moisture, temperature and nutrients throughout the day. When something is off, you get a notification. No more poking the soil and hoping for the best.</p>
         <ul class="checklist">
-          <li><div class="check-circle">✓</div><span class="check-li">Live soil moisture, temp and nutrients</span></li>
-          <li><div class="check-circle">✓</div><span class="check-li">Alerts before problems get visible</span></li>
-          <li><div class="check-circle">✓</div><span class="check-li">Works with any plant, any pot size</span></li>
+          <li><div class="check-circle">✓</div>Live soil readings all day</li>
+          <li><div class="check-circle">✓</div>Alerts before you can see the damage</li>
+          <li><div class="check-circle">✓</div>Works with any plant or pot</li>
         </ul>
       </div>
     </div>
 
-    <div class="benefit-block rev" style="margin-top:80px;">
-      <div class="benefit-img from-right">
-        <img src="SVG/AR.svg" alt="AR placement" class="float-a">
-      </div>
+    <div class="benefit-block rev" style="margin-top:64px;">
+      <div class="benefit-img from-right"><img src="SVG/AR.svg" alt="AR" class="float-a"></div>
       <div class="benefit-text from-left">
         <div class="benefit-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M2 12h2M20 12h2M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg></div>
-        <h3 class="benefit-title">See it in your space before you buy</h3>
-        <p class="benefit-body">Use the AR viewer to drop any plant into your room at actual scale. Check if it fits, if it gets enough light, and how it looks — all from your phone camera.</p>
+        <h3 class="benefit-title">Place plants before you buy them</h3>
+        <p class="benefit-body">Open the AR view, pick a plant, and drop it anywhere in your room. You can see the real size, check the light, and take a photo to share.</p>
         <ul class="checklist">
-          <li><div class="check-circle">✓</div><span class="check-li">Full 3D plant models at real scale</span></li>
-          <li><div class="check-circle">✓</div><span class="check-li">Light level overlay per location</span></li>
-          <li><div class="check-circle">✓</div><span class="check-li">Screenshot and share your layout</span></li>
+          <li><div class="check-circle">✓</div>3D plant models at real size</li>
+          <li><div class="check-circle">✓</div>Light check for each spot</li>
+          <li><div class="check-circle">✓</div>Take a photo and share it</li>
         </ul>
       </div>
     </div>
+  </div>
+</section>
 
-    <div class="benefit-block" style="margin-top:80px;">
-      <div class="benefit-img from-left">
-        <img src="SVG/Logbook.svg" alt="Plant Logbook" class="float-b">
+<!-- ══ TEAM ══ -->
+<section id="team">
+  <div class="inner">
+    <p class="eyebrow reveal">The People</p>
+    <h2 class="sec-title reveal d1">The team</h2>
+    <p class="sec-sub reveal d2">Developers and designers from Langara College in Vancouver. We built Semina as our capstone project.</p>
+
+    <div class="team-divider">Developers</div>
+    <div class="team-grid">
+      <div class="team-card reveal pop">
+        <div class="team-av" style="background:#fff"><img src="img/team/gaurav.jpeg" alt="Gaurav" onerror="this.style.display='none';this.parentNode.innerHTML='<span class=team-initials>G</span>'"></div>
+        <div class="team-info">
+          <div class="team-name">Gaurav</div><div class="team-role">Full-Stack Developer</div>
+          <div class="team-bio">Built the core of the app including login, scanner, onboarding, and the database.</div>
+          <div class="team-social">
+            <a class="social-btn" href="#" title="LinkedIn"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" fill="#006641"/></svg></a>
+            <a class="social-btn" href="#" title="GitHub"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" fill="#006641"/></svg></a>
+          </div>
+        </div>
       </div>
-      <div class="benefit-text from-right">
-        <div class="benefit-icon"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></div>
-        <h3 class="benefit-title">A record of every plant, not just a photo</h3>
-        <p class="benefit-body">The logbook keeps a full timeline — waterings, repottings, health notes, and photos. After a few months you'll actually know what your plant likes and doesn't like.</p>
-        <ul class="checklist">
-          <li><div class="check-circle">✓</div><span class="check-li">Full care history per plant</span></li>
-          <li><div class="check-circle">✓</div><span class="check-li">Photo diary with timestamps</span></li>
-          <li><div class="check-circle">✓</div><span class="check-li">Available in 29 languages</span></li>
-        </ul>
+      <div class="team-card reveal pop d1">
+        <div class="team-av" style="background:#fff"><img src="img/team/neel.jpeg" alt="Neel" onerror="this.style.display='none';this.parentNode.innerHTML='<span class=team-initials>N</span>'"></div>
+        <div class="team-info">
+          <div class="team-name">Neel</div><div class="team-role">Frontend Developer</div>
+          <div class="team-bio">Built the UI components and kept everything consistent across screens.</div>
+          <div class="team-social">
+            <a class="social-btn" href="#" title="LinkedIn"><svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" fill="#006641"/></svg></a>
+            <a class="social-btn" href="#" title="GitHub"><svg viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" fill="#006641"/></svg></a>
+          </div>
+        </div>
+      </div>
+      <div class="team-card reveal pop d2">
+        <div class="team-av" style="background:#fff"><img src="img/team/Manmeet.jpeg" alt="Manmeet" onerror="this.style.display='none';this.parentNode.innerHTML='<span class=team-initials>M</span>'"></div>
+        <div class="team-info">
+          <div class="team-name">Manmeet</div><div class="team-role">AR Developer</div>
+          <div class="team-bio">Built the AR feature that lets you place plants in your room.</div>
+          <div class="team-social">
+            <a class="social-btn" href="#" title="LinkedIn"><svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" fill="#006641"/></svg></a>
+            <a class="social-btn" href="#" title="GitHub"><svg viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" fill="#006641"/></svg></a>
+          </div>
+        </div>
+      </div>
+      <div class="team-card reveal pop d3">
+        <div class="team-av" style="background:#fff"><img src="img/team/shubhams.jpeg" alt="Shubham" onerror="this.style.display='none';this.parentNode.innerHTML='<span class=team-initials>S</span>'"></div>
+        <div class="team-info">
+          <div class="team-name">Shubham</div><div class="team-role">Backend Developer</div>
+          <div class="team-bio">Built the plant chatbot and all the backend logic.</div>
+          <div class="team-social">
+            <a class="social-btn" href="#" title="LinkedIn"><svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" fill="#006641"/></svg></a>
+            <a class="social-btn" href="#" title="GitHub"><svg viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" fill="#006641"/></svg></a>
+          </div>
+        </div>
+      </div>
+      <div class="team-card reveal pop d4">
+        <div class="team-av" style="background:#fff"><img src="img/team/gurdit.jpeg" alt="Gurdit" style="object-fit:contain" onerror="this.style.display='none';this.parentNode.innerHTML='<span class=team-initials>G</span>'"></div>
+        <div class="team-info">
+          <div class="team-name">Gurdit</div><div class="team-role">IoT Developer</div>
+          <div class="team-bio">Connected the Bluetooth sensors and got the live data showing on screen.</div>
+          <div class="team-social">
+            <a class="social-btn" href="#" title="LinkedIn"><svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" fill="#006641"/></svg></a>
+            <a class="social-btn" href="#" title="GitHub"><svg viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" fill="#006641"/></svg></a>
+          </div>
+        </div>
       </div>
     </div>
-  </section>
 
-  <!-- EARLY ACCESS CTA -->
-  <section class="cta-sec" id="acc-sec">
-    <p class="eyebrow reveal" style="color:rgba(255,255,255,.6);">Early Access</p>
-    <h2 class="sec-title reveal d1">Want early access?</h2>
-    <p class="sec-sub reveal d2">Drop your email and we'll reach out when spots open up. No spam, just a heads-up when it's ready.</p>
+    <div class="team-divider">Designers</div>
+    <div class="team-grid">
+      <div class="team-card reveal pop">
+        <div class="team-av" style="background:#fff"><img src="img/team/ravkaran.jpeg" alt="Ravkaran" onerror="this.style.display='none';this.parentNode.innerHTML='<span class=team-initials>R</span>'"></div>
+        <div class="team-info">
+          <div class="team-name">Ravkaran</div><div class="team-role">Visual Designer</div>
+          <div class="team-bio">Designed the brand, colours, and overall visual feel.</div>
+          <div class="team-social"><a class="social-btn" href="#" title="LinkedIn"><svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" fill="#006641"/></svg></a></div>
+        </div>
+      </div>
+      <div class="team-card reveal pop d1">
+        <div class="team-av" style="background:#fff"><img src="img/team/naveen.jpeg" alt="Naveen" onerror="this.style.display='none';this.parentNode.innerHTML='<span class=team-initials>N</span>'"></div>
+        <div class="team-info">
+          <div class="team-name">Naveen</div><div class="team-role">UI Designer</div>
+          <div class="team-bio">Designed all the screens in the app.</div>
+          <div class="team-social"><a class="social-btn" href="#" title="LinkedIn"><svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" fill="#006641"/></svg></a></div>
+        </div>
+      </div>
+      <div class="team-card reveal pop d2">
+        <div class="team-av" style="background:#fff"><img src="img/team/Uzman.png" alt="Uzman" onerror="this.style.display='none';this.parentNode.innerHTML='<span class=team-initials>U</span>'"></div>
+        <div class="team-info">
+          <div class="team-name">Uzman</div><div class="team-role">UI/UX Designer</div>
+          <div class="team-bio">Researched UX, layouts, components, and spacing.</div>
+          <div class="team-social"><a class="social-btn" href="#" title="LinkedIn"><svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" fill="#006641"/></svg></a></div>
+        </div>
+      </div>
+      <div class="team-card reveal pop d3">
+        <div class="team-av" style="background:#fff"><img src="img/team/sahill.jpeg" alt="Sahil" onerror="this.style.display='none';this.parentNode.innerHTML='<span class=team-initials>S</span>'"></div>
+        <div class="team-info">
+          <div class="team-name">Sahil</div><div class="team-role">Motion Designer</div>
+          <div class="team-bio">Built the animations and transitions throughout the app.</div>
+          <div class="team-social"><a class="social-btn" href="#" title="LinkedIn"><svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" fill="#006641"/></svg></a></div>
+        </div>
+      </div>
+      <div class="team-card reveal pop d4">
+        <div class="team-av" style="background:#fff"><img src="img/team/mann.jpeg" alt="Mann" onerror="this.style.display='none';this.parentNode.innerHTML='<span class=team-initials>M</span>'"></div>
+        <div class="team-info">
+          <div class="team-name">Mann</div><div class="team-role">UX Researcher</div>
+          <div class="team-bio">Ran user tests and made sure the designs made sense.</div>
+          <div class="team-social"><a class="social-btn" href="#" title="LinkedIn"><svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" fill="#006641"/></svg></a></div>
+        </div>
+      </div>
+      <div class="team-card reveal pop d5">
+        <div class="team-av" style="background:#fff"><img src="img/team/shubham.jpeg" alt="Shubham" onerror="this.style.display='none';this.parentNode.innerHTML='<span class=team-initials>S</span>'"></div>
+        <div class="team-info">
+          <div class="team-name">Shubham</div><div class="team-role">Interaction Designer</div>
+          <div class="team-bio">Designed interactions and made sure the app is accessible.</div>
+          <div class="team-social"><a class="social-btn" href="#" title="LinkedIn"><svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" fill="#006641"/></svg></a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ BUSINESS MODEL ══ -->
+<section id="business">
+  <div class="inner">
+    <p class="eyebrow reveal">How it works</p>
+    <h2 class="sec-title reveal d1">How Semina makes money</h2>
+    <p class="sec-sub reveal d2">Three income streams that each make the others stronger.</p>
+    <div class="pillars">
+      <div class="pillar reveal pop">
+        <div class="pillar-icon"><svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12" y2="18"/></svg></div>
+        <div class="pillar-title">Monthly subscriptions</div>
+        <div class="pillar-desc">Monthly and annual plans that give users the full app. This is our main source of income.</div>
+      </div>
+      <div class="pillar reveal pop d2">
+        <div class="pillar-icon"><svg viewBox="0 0 24 24"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><circle cx="12" cy="20" r="1.5" fill="currentColor"/></svg></div>
+        <div class="pillar-title">Sensor kits</div>
+        <div class="pillar-desc">Bluetooth sensor kits sold online and in stores. People who buy the hardware tend to stay as subscribers.</div>
+      </div>
+      <div class="pillar reveal pop d4">
+        <div class="pillar-icon"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg></div>
+        <div class="pillar-title">Enterprise plans</div>
+        <div class="pillar-desc">A version of Semina for nurseries, botanical gardens, and commercial farms. Annual contracts with higher margins.</div>
+      </div>
+    </div>
+    <div class="plans">
+      <div class="plan reveal">
+        <div class="plan-tier">Seedling</div>
+        <div class="plan-price">$0</div>
+        <div class="plan-period">Free — no card needed</div>
+        <ul class="plan-feats"><li>Up to 5 plants</li><li>Basic identification</li><li>Community access</li><li>Weekly reminders</li></ul>
+        <button class="plan-btn">Get Started Free</button>
+      </div>
+      <div class="plan featured reveal d2">
+        <div class="plan-pop">Most Popular</div>
+        <div class="plan-tier">Grower</div>
+        <div class="plan-price">$9</div>
+        <div class="plan-period">per month, billed annually</div>
+        <ul class="plan-feats"><li>Unlimited plants</li><li>Full diagnostics</li><li>Sensor integration</li><li>AR placement</li><li>Priority support</li></ul>
+        <button class="plan-btn">Try Free for 14 Days</button>
+      </div>
+      <div class="plan reveal d4">
+        <div class="plan-tier">Botanist</div>
+        <div class="plan-price">$24</div>
+        <div class="plan-period">per month, billed annually</div>
+        <ul class="plan-feats"><li>Everything in Grower</li><li>Multiple locations</li><li>Team access</li><li>API</li><li>Reports &amp; exports</li></ul>
+        <button class="plan-btn">Contact Sales</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ EARLY ACCESS ══ -->
+<section id="access">
+  <div class="cta-inner">
+    <p class="eyebrow reveal">Early Access</p>
+    <h2 class="sec-title reveal d1">Want to try it early?</h2>
+    <p class="sec-sub reveal d2">Leave your email and we will get in touch when we have a spot for you.</p>
     <div class="cta-form reveal d3">
       <input type="email" placeholder="your@email.com">
       <button type="button">Join Waitlist</button>
     </div>
-    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:24px;" class="reveal d4">
-      <button class="btn btn-store" onclick="goEarlyAccess()" style="background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+    <div class="store-row reveal d4">
+      <button class="btn-store-light" onclick="scrollTo('access')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
         <div><span class="btn-store-sub">Download on the</span><span class="btn-store-name">App Store</span></div>
       </button>
-      <button class="btn btn-store" onclick="goEarlyAccess()" style="background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M3.18 23.65c.3.17.64.22.99.13l12.47-7.2-2.79-2.79-10.67 9.86zM.58 1.3C.22 1.7 0 2.28 0 3.02v17.96c0 .74.22 1.32.59 1.72l.09.09 10.06-10.06v-.24L.67 1.21l-.09.09zm20.65 8.84l-2.87-1.65-3.14 3.14 3.14 3.14 2.9-1.67c.83-.48.83-1.25-.03-1.96zM3.18.35L15.65 7.55l-2.79 2.79L2.18.48C2.48.27 2.88.18 3.18.35z"/></svg>
+      <button class="btn-store-light" onclick="scrollTo('access')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M3.18 23.65c.3.17.64.22.99.13l12.47-7.2-2.79-2.79-10.67 9.86zM.58 1.3C.22 1.7 0 2.28 0 3.02v17.96c0 .74.22 1.32.59 1.72l.09.09 10.06-10.06v-.24L.67 1.21l-.09.09zm20.65 8.84l-2.87-1.65-3.14 3.14 3.14 3.14 2.9-1.67c.83-.48.83-1.25-.03-1.96zM3.18.35L15.65 7.55l-2.79 2.79L2.18.48C2.48.27 2.88.18 3.18.35z"/></svg>
         <div><span class="btn-store-sub">Get it on</span><span class="btn-store-name">Google Play</span></div>
       </button>
     </div>
-  </section>
-
-</div><!-- /home -->
-
-<!-- ════════ TEAM ════════ -->
-<div id="page-team" class="page">
-  <div style="background:linear-gradient(135deg,#0d1f17,#1a3d28 70%,#0d2d1a);padding:72px 24px;text-align:center;">
-    <p class="eyebrow" style="color:var(--green-mid);">The People</p>
-    <h2 class="sec-title" style="color:white;">11 people, one mission</h2>
-    <p class="sec-sub" style="color:rgba(255,255,255,.55);margin-bottom:0;">Software developers and UI/UX designers who got tired of watching houseplants die and decided to build something about it.</p>
   </div>
+<<<<<<< Updated upstream
 
   <section class="sec" style="background:var(--bg);">
     <div class="section-inner">
@@ -416,58 +927,56 @@
     </div>
   </section>
 </div><!-- /business -->
+=======
+</section>
+>>>>>>> Stashed changes
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-brand" onclick="showPage('home')">
+  <div class="footer-brand" onclick="document.getElementById('hero').scrollIntoView({behavior:'smooth'})">
     <img src="data:image/png;base64,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" alt="Semina">
     SEMINA
   </div>
   <div class="footer-links">
-    <a onclick="showPage('home')">Home</a>
-    <a onclick="goFeatures()">Features</a>
-    <a onclick="showPage('team')">Team</a>
-    <a onclick="showPage('business')">Business Model</a>
-    <a onclick="goEarlyAccess()">Early Access</a>
+    <a onclick="scrollTo('hero')">Home</a>
+    <a onclick="scrollTo('features')">Features</a>
+    <a onclick="scrollTo('team')">Team</a>
+    <a onclick="scrollTo('business')">Business Model</a>
+    <a onclick="scrollTo('access')">Early Access</a>
   </div>
-  <div class="footer-copy">© 2026 Semina · Langara College, Vancouver</div>
+  <div style="font-size:12px">© 2026 Semina. Built at Langara College, Vancouver.</div>
 </footer>
 
+<!-- PDF MODAL -->
+<div id="pdf-modal" onclick="handleModalClick(event)">
+  <div class="pdf-box">
+    <div class="pdf-head">
+      <div class="pdf-head-title">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#F75555" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        Semina Project Proposal
+      </div>
+      <div class="pdf-actions">
+        <a class="pdf-dl" href="/pdf/Semina%20Project%20Proposal.pdf" download>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
+          Download
+        </a>
+        <button class="pdf-close" onclick="closePDF()">✕</button>
+      </div>
+    </div>
+    <iframe id="pdf-iframe" src="" title="Semina Proposal"></iframe>
+  </div>
+</div>
+
 <script>
-function showPage(id){
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.getElementById('page-'+id).classList.add('active');
-  window.scrollTo({top:0,behavior:'smooth'});
-  setNav(id);
-  setTimeout(initReveal,80);
+/* Smooth scroll helper */
+function scrollTo(id){
+  const el=document.getElementById(id);
+  if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
 }
-function setNav(id){
-  document.querySelectorAll('.nav-links a,.nav-mobile a').forEach(a=>a.classList.remove('active-nav'));
-  const m={home:'nl-home',team:'nl-team',business:'nl-biz'};
-  if(m[id]) document.getElementById(m[id]).classList.add('active-nav');
-}
-function goFeatures(){
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.getElementById('page-home').classList.add('active');
-  document.querySelectorAll('.nav-links a,.nav-mobile a').forEach(a=>a.classList.remove('active-nav'));
-  document.getElementById('nl-feat').classList.add('active-nav');
-  setTimeout(()=>{
-    const el=document.getElementById('feat-sec');
-    if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
-  },60);
-}
-function goEarlyAccess(){
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.getElementById('page-home').classList.add('active');
-  document.querySelectorAll('.nav-links a,.nav-mobile a').forEach(a=>a.classList.remove('active-nav'));
-  document.getElementById('nl-acc').classList.add('active-nav');
-  setTimeout(()=>{
-    const el=document.getElementById('acc-sec');
-    if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
-  },60);
-}
+
+/* Mobile menu */
 let mobOpen=false;
-function toggleMobile(){
+function toggleMob(){
   mobOpen=!mobOpen;
   document.getElementById('mob').style.display=mobOpen?'flex':'none';
   document.getElementById('mob-overlay').style.display=mobOpen?'block':'none';
@@ -478,21 +987,9 @@ function closeMob(){
   document.getElementById('mob-overlay').style.display='none';
 }
 
-/* scroll spy + progress */
-window.addEventListener('scroll',()=>{
-  const home=document.getElementById('page-home');
-  const y=window.scrollY;
-  document.getElementById('nav').classList.toggle('scrolled',y>10);
-  if(home.classList.contains('active')){
-    const f=document.getElementById('feat-sec');
-    const a=document.getElementById('acc-sec');
-    const ft=f?f.offsetTop-80:Infinity,fb=ft+(f?f.offsetHeight:0),at=a?a.offsetTop-80:Infinity;
-    document.querySelectorAll('.nav-links a').forEach(x=>x.classList.remove('active-nav'));
-    if(y>=at) document.getElementById('nl-acc').classList.add('active-nav');
-    else if(y>=ft&&y<fb) document.getElementById('nl-feat').classList.add('active-nav');
-    else 
+/* PDF modal */
 function openPDF(){
-  document.getElementById('pdf-iframe').src='pdf/Semina Project Proposal.pdf';
+  document.getElementById('pdf-iframe').src='/pdf/Semina%20Project%20Proposal.pdf';
   document.getElementById('pdf-modal').classList.add('open');
   document.body.style.overflow='hidden';
 }
@@ -501,68 +998,39 @@ function closePDF(){
   document.getElementById('pdf-iframe').src='';
   document.body.style.overflow='';
 }
-function handleModalClick(e){
-  if(e.target===document.getElementById('pdf-modal')) closePDF();
-}
-document.addEventListener('keydown',e=>{ if(e.key==='Escape') closePDF(); });
+function handleModalClick(e){if(e.target===document.getElementById('pdf-modal'))closePDF()}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closePDF()});
 
-document.getElementById('nl-home').classList.add('active-nav');
-  }
+/* Progress bar + nav highlight + scrolled shadow */
+const sections=['hero','features','why','team','business','access'];
+window.addEventListener('scroll',()=>{
+  const y=window.scrollY;
   const doc=document.documentElement;
   const tot=doc.scrollHeight-doc.clientHeight;
-  document.getElementById('pb').style.width=(tot>0?(y/tot*100):0)+'%';
+  document.getElementById('pb').style.width=(tot>0?y/tot*100:0)+'%';
+  document.getElementById('nav').classList.toggle('scrolled',y>10);
+
+  // Active nav link
+  let current='hero';
+  sections.forEach(id=>{
+    const el=document.getElementById(id);
+    if(el&&el.offsetTop-100<=y) current=id;
+  });
+  document.querySelectorAll('.nav-links a, .nav-mobile a').forEach(a=>{
+    const href=a.getAttribute('href')||a.getAttribute('onclick')||'';
+    const matches=href.includes(current);
+    a.classList.toggle('active-nav',matches);
+  });
 });
 
-/* IntersectionObserver reveal — triggers both ways */
-function initReveal(){
-  const io=new IntersectionObserver((entries)=>{
-    entries.forEach(e=>{
-      if(e.isIntersecting) e.target.classList.add('in');
-      else e.target.classList.remove('in');
-    });
-  },{threshold:0.1,rootMargin:'0px 0px -30px 0px'});
-  document.querySelectorAll('.page.active .reveal').forEach(el=>io.observe(el));
-}
-
-
-function openPDF(){
-  document.getElementById('pdf-iframe').src='pdf/Semina Project Proposal.pdf';
-  document.getElementById('pdf-modal').classList.add('open');
-  document.body.style.overflow='hidden';
-}
-function closePDF(){
-  document.getElementById('pdf-modal').classList.remove('open');
-  document.getElementById('pdf-iframe').src='';
-  document.body.style.overflow='';
-}
-function handleModalClick(e){
-  if(e.target===document.getElementById('pdf-modal')) closePDF();
-}
-document.addEventListener('keydown',e=>{ if(e.key==='Escape') closePDF(); });
-
-document.getElementById('nl-home').classList.add('active-nav');
-initReveal();
+/* Intersection Observer reveal */
+const io=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting) e.target.classList.add('in');
+    else e.target.classList.remove('in');
+  });
+},{threshold:0.1,rootMargin:'0px 0px -30px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 </script>
-
-<!-- PDF VIEWER MODAL -->
-<div id="pdf-modal" onclick="handleModalClick(event)">
-  <div class="pdf-modal-box">
-    <div class="pdf-modal-header">
-      <div class="pdf-modal-title">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F75555" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-        Semina Project Proposal
-      </div>
-      <div class="pdf-modal-actions">
-        <a class="pdf-modal-dl" href="pdf/Semina Project Proposal.pdf" download>
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
-          Download
-        </a>
-        <button class="pdf-modal-close" onclick="closePDF()">✕</button>
-      </div>
-    </div>
-    <iframe id="pdf-iframe" src="" title="Semina Proposal"></iframe>
-  </div>
-</div>
-
 </body>
 </html>
