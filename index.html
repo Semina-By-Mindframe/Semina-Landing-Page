@@ -34,7 +34,8 @@ nav{
 }
 nav.scrolled{box-shadow:0 4px 20px rgba(13,31,23,.08)}
 .nav-brand{display:flex;align-items:center;gap:10px;cursor:pointer;text-decoration:none;flex-shrink:0}
-.nav-brand img{width:34px;height:34px;border-radius:50%;object-fit:cover;display:block;flex-shrink:0}
+.nav-brand-logo{width:36px;height:36px;border-radius:50%;overflow:hidden;flex-shrink:0;display:block;background:#006641}
+.nav-brand-logo img{width:100%;height:100%;object-fit:cover;display:block;transform:scale(1.15)}
 .nav-brand-name{font-size:17px;font-weight:900;color:var(--text);letter-spacing:.04em;line-height:1}
 .nav-links{display:none;gap:28px;list-style:none;align-items:center}
 .nav-links a{font-size:14px;font-weight:700;color:var(--mid);text-decoration:none;cursor:pointer;
@@ -52,29 +53,72 @@ nav.scrolled{box-shadow:0 4px 20px rgba(13,31,23,.08)}
   border-radius:2px;transition:.3s}
 
 /* ── MOBILE MENU ── */
-#mob-overlay{display:none;position:fixed;inset:0;top:64px;
-  background:rgba(0,0,0,.4);z-index:9997}
+#mob-overlay{display:none;position:fixed;inset:0;top:0;
+  background:rgba(0,0,0,.5);z-index:9997;backdrop-filter:blur(2px)}
 .nav-mobile{
-  display:none;
-  flex-direction:column;
-  position:fixed;
-  top:64px;left:0;right:0;width:100vw;
+  display:flex !important;
+  flex-direction:column !important;
+  position:fixed !important;
+  top:0 !important;right:0 !important;bottom:0 !important;left:auto !important;
+  width:85vw;max-width:340px;
+  height:100vh !important;
   z-index:9998;
-  background:#ffffff;
-  box-shadow:0 12px 40px rgba(13,31,23,.2);
-  border-top:2px solid var(--border);
+  background:#ffffff !important;
+  box-shadow:-4px 0 48px rgba(13,31,23,.18);
+  transform:translateX(100%);
+  transition:transform .38s cubic-bezier(.4,0,.2,1);
+  overflow:hidden !important;
+  border-top:none !important;
 }
+.nav-mobile.open{transform:translateX(0) !important}
+
+/* drawer header */
+.mob-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:20px 24px;border-bottom:1px solid var(--border);
+  flex-shrink:0;
+}
+.mob-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.mob-logo-img{width:32px;height:32px;border-radius:50%;overflow:hidden;flex-shrink:0}
+.mob-logo-img img{width:100%;height:100%;object-fit:cover;display:block;transform:scale(1.15)}
+.mob-logo-name{font-size:17px;font-weight:900;color:var(--text);letter-spacing:.04em}
+.mob-close{
+  width:36px;height:36px;border-radius:50%;
+  background:var(--bg);border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;transition:all .2s;flex-shrink:0;
+}
+.mob-close:hover{background:var(--text);color:#fff}
+.mob-close svg{width:16px;height:16px;stroke:var(--text);stroke-width:2;
+  stroke-linecap:round;transition:stroke .2s}
+.mob-close:hover svg{stroke:#fff}
+
+/* drawer links */
 .nav-mobile a{
-  font-size:17px;font-weight:700;color:var(--text);
-  padding:18px 24px;cursor:pointer;
+  font-size:18px;font-weight:700;color:var(--text);
+  padding:22px 24px;cursor:pointer;
   border-bottom:1px solid var(--border);
-  display:block;width:100%;
-  background:#ffffff;
-  transition:background .15s,color .15s;
-  margin:0;
+  display:block !important;width:100%;
+  background:#ffffff !important;
+  transition:color .2s,padding-left .2s;
+  letter-spacing:-.01em;
+  position:static !important;
+  box-shadow:none !important;
+  border-radius:0 !important;
 }
 .nav-mobile a:last-child{border-bottom:none}
-.nav-mobile a:hover,.nav-mobile a.active-nav{background:var(--green-light);color:var(--secondary)}
+.nav-mobile a:hover{color:var(--secondary);padding-left:32px;background:#f5fbf7 !important}
+.nav-mobile a.active-nav{color:var(--secondary)}
+
+/* join waitlist btn in drawer */
+.mob-cta-wrap{padding:24px;margin-top:auto;border-top:1px solid var(--border)}
+.mob-cta-btn{
+  width:100%;padding:14px;background:var(--secondary);color:#fff;
+  border:none;border-radius:6px;font-family:'Lato',sans-serif;
+  font-size:14px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;
+  cursor:pointer;transition:background .2s;
+}
+.mob-cta-btn:hover{background:var(--primary)}
 
 /* ── SHARED ── */
 section{padding:80px 24px}
@@ -154,7 +198,7 @@ section{padding:80px 24px}
   transition:transform .3s,box-shadow .3s;
 }
 .feature-card:hover{transform:translateY(-6px);box-shadow:0 20px 48px rgba(0,102,65,.1)}
-.feature-card img{width:85%;height:auto;max-height:200px;
+.feature-card img{width:90%;height:auto;max-height:220px;
   object-fit:contain;margin-bottom:20px;background:transparent;
   transition:transform .4s cubic-bezier(.22,.61,.36,1)}
 .feature-card:hover img{transform:translateY(-6px) scale(1.03)}
@@ -309,7 +353,7 @@ footer{background:var(--dark1);color:rgba(255,255,255,.38);
   gap:16px;align-items:center;text-align:center}
 .footer-brand{font-size:16px;font-weight:900;color:#fff;letter-spacing:.04em;
   display:flex;align-items:center;gap:9px;cursor:pointer}
-.footer-brand img{width:30px;height:30px;border-radius:50%;object-fit:cover}
+.footer-brand img{width:30px;height:30px;border-radius:50%;object-fit:cover;overflow:hidden;flex-shrink:0}
 .footer-links{display:flex;gap:16px;flex-wrap:wrap;justify-content:center}
 .footer-links a{font-size:12px;font-weight:700;letter-spacing:.04em;color:rgba(255,255,255,.38);
   text-decoration:none;cursor:pointer;transition:color .2s;text-transform:uppercase}
@@ -322,7 +366,7 @@ footer{background:var(--dark1);color:rgba(255,255,255,.38);
   .hero-actions .btn{width:auto}
   .hero-stores{flex-direction:row}
   .features-grid{grid-template-columns:repeat(2,1fr)}
-  .feature-card img{max-height:260px}
+  .feature-card img{max-height:300px}
   .team-grid{grid-template-columns:repeat(3,1fr)}
   .pillars{grid-template-columns:repeat(2,1fr)}
   .plans{grid-template-columns:repeat(1,1fr)}
@@ -343,7 +387,7 @@ footer{background:var(--dark1);color:rgba(255,255,255,.38);
   .hero-img{flex:1}.hero-content{flex:1}
   .hero-img img{max-width:none;width:100%}
   .features-grid{grid-template-columns:repeat(2,1fr);gap:28px}
-  .feature-card img{max-height:340px}
+  .feature-card img{max-height:420px}
   .benefit-block{flex-direction:row;align-items:center;gap:64px}
   .benefit-block.rev{flex-direction:row-reverse}
   .benefit-img,.benefit-text{flex:1}
@@ -375,8 +419,7 @@ footer{background:var(--dark1);color:rgba(255,255,255,.38);
 
 <!-- NAV -->
 <nav id="nav">
-  <a class="nav-brand" href="#hero">
-    <img src="img/Group 1000004418.jpg" alt="Semina">
+  <a class="nav-brand" href="#hero"><span class="nav-brand-logo"><img src="SVG/logo-green.svg" alt="Semina"></span>
     <span class="nav-brand-name">SEMINA</span>
   </a>
   <ul class="nav-links" id="nav-links">
@@ -395,11 +438,20 @@ footer{background:var(--dark1);color:rgba(255,255,255,.38);
 </nav>
 <div id="mob-overlay" onclick="closeMob()"></div>
 <nav class="nav-mobile" id="mob">
+  <div class="mob-header">
+    <img src="SVG/semina-text-logo.svg" alt="Semina" style="height:28px;width:auto;display:block">
+    <button class="mob-close" onclick="closeMob()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="var(--text)" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
   <a onclick="scrollTo('hero');closeMob()">Home</a>
   <a onclick="scrollTo('features');closeMob()">Features</a>
   <a onclick="scrollTo('team');closeMob()">Team</a>
   <a onclick="scrollTo('business');closeMob()">Business Model</a>
   <a onclick="scrollTo('access');closeMob()">Early Access</a>
+  <div class="mob-cta-wrap">
+    <button class="mob-cta-btn" onclick="scrollTo('access');closeMob()">Join Waitlist</button>
+  </div>
 </nav>
 
 <!-- ══ HERO ══ -->
@@ -473,7 +525,7 @@ footer{background:var(--dark1);color:rgba(255,255,255,.38);
     <p class="sec-sub reveal d2">Most plants die from too much water or the wrong spot. Semina helps you avoid both.</p>
 
     <div class="benefit-block reveal">
-      <div class="benefit-img from-left"><img src="SVG/Sensor.svg" alt="Sensor" class="float-b"></div>
+      <div class="benefit-img from-left"><img src="img/plant health scanner 1.png" alt="Sensor" class="float-b"></div>
       <div class="benefit-text from-right">
         <div class="benefit-icon"><svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
         <h3 class="benefit-title">Know exactly when to water</h3>
@@ -487,7 +539,7 @@ footer{background:var(--dark1);color:rgba(255,255,255,.38);
     </div>
 
     <div class="benefit-block rev" style="margin-top:64px;">
-      <div class="benefit-img from-right"><img src="SVG/AR.svg" alt="AR" class="float-a"></div>
+      <div class="benefit-img from-right"><img src="img/AR Plant Screen 2.png" alt="AR" class="float-a"></div>
       <div class="benefit-text from-left">
         <div class="benefit-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M2 12h2M20 12h2M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg></div>
         <h3 class="benefit-title">Place plants before you buy them</h3>
@@ -697,8 +749,7 @@ footer{background:var(--dark1);color:rgba(255,255,255,.38);
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-brand" onclick="document.getElementById('hero').scrollIntoView({behavior:'smooth'})">
-    <img src="data:image/png;base64,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" alt="Semina">
+  <div class="footer-brand" onclick="document.getElementById('hero').scrollIntoView({behavior:'smooth'})"><img src="SVG/logo-green.svg" alt="Semina">
     SEMINA
   </div>
   <div class="footer-links">
@@ -742,12 +793,19 @@ function scrollTo(id){
 let mobOpen=false;
 function toggleMob(){
   mobOpen=!mobOpen;
-  document.getElementById('mob').style.display=mobOpen?'flex':'none';
-  document.getElementById('mob-overlay').style.display=mobOpen?'block':'none';
+  const mob=document.getElementById('mob');
+  const overlay=document.getElementById('mob-overlay');
+  if(mobOpen){
+    overlay.style.display='block';
+    requestAnimationFrame(()=>mob.classList.add('open'));
+  } else {
+    mob.classList.remove('open');
+    overlay.style.display='none';
+  }
 }
 function closeMob(){
   mobOpen=false;
-  document.getElementById('mob').style.display='none';
+  document.getElementById('mob').classList.remove('open');
   document.getElementById('mob-overlay').style.display='none';
 }
 
