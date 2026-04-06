@@ -242,8 +242,21 @@ section{padding:80px 24px}
   transform:translateY(-5px);border-color:var(--green-mid)}
 .team-av{width:100%;aspect-ratio:1/1;overflow:hidden;background:#fff;
   display:flex;align-items:center;justify-content:center}
-.team-av img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease}
+.team-av img{width:100%;height:100%;object-fit:cover;object-position:top;transition:transform .4s ease}
 .team-card:hover .team-av img{transform:scale(1.05)}
+
+/* ── Per-member avatar adjustments ── */
+.av-gaurav img{}
+.av-neel img{}
+.av-manmeet img{transform:scale(0.92);object-position:center 10%}
+.av-shubham img{transform:scale(1.02);object-position:center 5%}
+.av-gurdit img{}
+.av-rav img{}
+.av-naveen img{}
+.av-uzman img{}
+.av-sahil img{transform:scale(0.88);object-position:center 5%}
+.av-mann img{transform:scale(0.88);object-position:center 5%}
+.av-shubham-m img{}
 .team-initials{font-size:26px;font-weight:900;color:rgba(13,31,23,.25)}
 .team-info{padding:12px 12px 14px}
 .team-name{font-size:14px;font-weight:900;color:var(--text);margin-bottom:2px}
@@ -564,57 +577,57 @@ footer{background:var(--dark1);color:rgba(255,255,255,.38);
     <div class="team-divider">Developers</div>
     <div class="team-grid">
       <div class="team-card reveal pop">
-        <div class="team-av" style="background:#fff"><img src="img/Team/Gaurav.png" alt="Gaurav" onerror="this.style.display='none';this.parentNode.innerHTML='<span class=team-initials>G</span>'"></div>
+        <div class="team-av av-gaurav"><img src="img/Team/Gaurav.png" alt="Gaurav" onerror="this.style.display='none';this.parentNode.innerHTML='<span class=team-initials>G</span>'"></div>
         <div class="team-info">
-          <div class="team-name">Gaurav Kumar</div><div class="team-role">Fullstack & AI Developer</div>
+          <div class="team-name">Gaurav Kumar</div><div class="team-role">Fullstack & AI Developer<br>Lead Developer, Project Manager</div>
    
           <div class="team-social">
             <a class="social-btn" href="https://www.linkedin.com/in/gaurav-kumar1286/" title="LinkedIn"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" fill="#006641"/></svg></a>
-            <a class="social-btn" href="#" title="GitHub"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" fill="#006641"/></svg></a>
+            <a class="social-btn" href="https://github.com/Gauravkr1286" title="GitHub"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" fill="#006641"/></svg></a>
           </div>
         </div>
       </div>
       <div class="team-card reveal pop d1">
-        <div class="team-av" style="background:#fff"><img src="img/Team/Neel.png" alt="Neel" onerror="this.style.display='none';this.parentNode.innerHTML='<span class=team-initials>N</span>'"></div>
+        <div class="team-av av-neel"><img src="img/Team/Neel.png" alt="Neel" onerror="this.style.display='none';this.parentNode.innerHTML='<span class=team-initials>N</span>'"></div>
         <div class="team-info">
           <div class="team-name">Neel Surani</div><div class="team-role">Frontend Developer</div>
        
           <div class="team-social">
             <a class="social-btn" href="https://www.linkedin.com/in/neel-surani-7519411a4/" title="LinkedIn"><svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" fill="#006641"/></svg></a>
-            <a class="social-btn" href="#" title="GitHub"><svg viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" fill="#006641"/></svg></a>
+            <a class="social-btn" href="https://github.com/neelsurani" title="GitHub"><svg viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" fill="#006641"/></svg></a>
           </div>
         </div>
       </div>
       <div class="team-card reveal pop d2">
-        <div class="team-av" style="background:#fff"><img src="img/Team/Manmeet.png" alt="Manmeet" onerror="this.style.display='none';this.parentNode.innerHTML='<span class=team-initials>M</span>'"></div>
+        <div class="team-av av-manmeet"><img src="img/Team/Manmeet.png" alt="Manmeet" onerror="this.style.display='none';this.parentNode.innerHTML='<span class=team-initials>M</span>'"></div>
         <div class="team-info">
           <div class="team-name">Manmeet Singh Virdi</div><div class="team-role">Fullstack Developer</div>
         
           <div class="team-social">
             <a class="social-btn" href="https://www.linkedin.com/in/manmeet-singh-virdi-b9359b334/" title="LinkedIn"><svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" fill="#006641"/></svg></a>
-            <a class="social-btn" href="#" title="GitHub"><svg viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" fill="#006641"/></svg></a>
+            <a class="social-btn" href="https://github.com/ManmeetVirdi17" title="GitHub"><svg viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" fill="#006641"/></svg></a>
           </div>
         </div>
       </div>
       <div class="team-card reveal pop d3">
-        <div class="team-av" style="background:#fff"><img src="img/Team/Shubham.png" alt="Shubham" onerror="this.style.display='none';this.parentNode.innerHTML='<span class=team-initials>S</span>'"></div>
+        <div class="team-av av-shubham"><img src="img/Team/Shubham.png" alt="Shubham" onerror="this.style.display='none';this.parentNode.innerHTML='<span class=team-initials>S</span>'"></div>
         <div class="team-info">
           <div class="team-name">Shubham</div><div class="team-role">Fullstack Developer</div>
   
           <div class="team-social">
             <a class="social-btn" href="http://www.linkedin.com/in/shubham-sharma-1a179727b" title="LinkedIn"><svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" fill="#006641"/></svg></a>
-            <a class="social-btn" href="#" title="GitHub"><svg viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" fill="#006641"/></svg></a>
+            <a class="social-btn" href="https://github.com/Shubham-18vs" title="GitHub"><svg viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" fill="#006641"/></svg></a>
           </div>
         </div>
       </div>
       <div class="team-card reveal pop d4">
-        <div class="team-av" style="background:#fff"><img src="img/Team/Gurdit.png" alt="Gurdit" style="object-fit:contain" onerror="this.style.display='none';this.parentNode.innerHTML='<span class=team-initials>G</span>'"></div>
+        <div class="team-av av-gurdit"><img src="img/Team/Gurdit.png" alt="Gurdit" onerror="this.style.display='none';this.parentNode.innerHTML='<span class=team-initials>G</span>'"></div>
         <div class="team-info">
-          <div class="team-name">Gurdit</div><div class="team-role">Fullstack Developer</div>
+          <div class="team-name">Gurdit Singh</div><div class="team-role">Fullstack Developer</div>
          
           <div class="team-social">
             <a class="social-btn" href="https://www.linkedin.com/in/gurdit-singh-971114193/" title="LinkedIn"><svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" fill="#006641"/></svg></a>
-            <a class="social-btn" href="#" title="GitHub"><svg viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" fill="#006641"/></svg></a>
+            <a class="social-btn" href="https://github.com/GurditSingh0311" title="GitHub"><svg viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" fill="#006641"/></svg></a>
           </div>
         </div>
       </div>
@@ -623,7 +636,7 @@ footer{background:var(--dark1);color:rgba(255,255,255,.38);
     <div class="team-divider">Designers</div>
     <div class="team-grid">
       <div class="team-card reveal pop">
-        <div class="team-av" style="background:#fff"><img src="img/Team/Rav.png" alt="Ravkaran" onerror="this.style.display='none';this.parentNode.innerHTML='<span class=team-initials>R</span>'"></div>
+        <div class="team-av av-rav"><img src="img/Team/Rav.png" alt="Ravkaran" onerror="this.style.display='none';this.parentNode.innerHTML='<span class=team-initials>R</span>'"></div>
         <div class="team-info">
           <div class="team-name">Ravkaran</div><div class="team-role">Lead UI/UX Designer</div>
   
@@ -631,7 +644,7 @@ footer{background:var(--dark1);color:rgba(255,255,255,.38);
         </div>
       </div>
       <div class="team-card reveal pop d1">
-        <div class="team-av" style="background:#fff"><img src="img/Team/Naveen.png" alt="Naveen" onerror="this.style.display='none';this.parentNode.innerHTML='<span class=team-initials>N</span>'"></div>
+        <div class="team-av av-naveen"><img src="img/Team/Naveen.png" alt="Naveen" onerror="this.style.display='none';this.parentNode.innerHTML='<span class=team-initials>N</span>'"></div>
         <div class="team-info">
           <div class="team-name">Naveen</div><div class="team-role">UI/UX Designer</div>
 
@@ -639,7 +652,7 @@ footer{background:var(--dark1);color:rgba(255,255,255,.38);
         </div>
       </div>
       <div class="team-card reveal pop d2">
-        <div class="team-av" style="background:#fff"><img src="img/Team/Uzman.png" alt="Uzman" onerror="this.style.display='none';this.parentNode.innerHTML='<span class=team-initials>U</span>'"></div>
+        <div class="team-av av-uzman"><img src="img/Team/Uzman.png" alt="Uzman" onerror="this.style.display='none';this.parentNode.innerHTML='<span class=team-initials>U</span>'"></div>
         <div class="team-info">
           <div class="team-name">Mohamed Uzman</div><div class="team-role">UI/UX Designer</div>
      
@@ -647,7 +660,7 @@ footer{background:var(--dark1);color:rgba(255,255,255,.38);
         </div>
       </div>
       <div class="team-card reveal pop d3">
-        <div class="team-av" style="background:#fff"><img src="img/Team/Sahil.png" alt="Sahil" onerror="this.style.display='none';this.parentNode.innerHTML='<span class=team-initials>S</span>'"></div>
+        <div class="team-av av-sahil"><img src="img/Team/Sahil.png" alt="Sahil" onerror="this.style.display='none';this.parentNode.innerHTML='<span class=team-initials>S</span>'"></div>
         <div class="team-info">
           <div class="team-name">Sahil Juneja</div><div class="team-role">UI/UX Designer</div>
     
@@ -655,7 +668,7 @@ footer{background:var(--dark1);color:rgba(255,255,255,.38);
         </div>
       </div>
       <div class="team-card reveal pop d4">
-        <div class="team-av" style="background:#fff"><img src="img/Team/Mann.png" alt="Mann" onerror="this.style.display='none';this.parentNode.innerHTML='<span class=team-initials>M</span>'"></div>
+        <div class="team-av av-mann"><img src="img/Team/Mann.png" alt="Mann" onerror="this.style.display='none';this.parentNode.innerHTML='<span class=team-initials>M</span>'"></div>
         <div class="team-info">
           <div class="team-name">Mann Modi</div><div class="team-role">UX/UI Designer</div>
         
@@ -663,7 +676,7 @@ footer{background:var(--dark1);color:rgba(255,255,255,.38);
         </div>
       </div>
       <div class="team-card reveal pop d5">
-        <div class="team-av" style="background:#fff"><img src="img/Team/Shubham M.png" alt="Shubham" onerror="this.style.display='none';this.parentNode.innerHTML='<span class=team-initials>S</span>'"></div>
+        <div class="team-av av-shubham-m"><img src="img/Team/Shubham M.png" alt="Shubham" onerror="this.style.display='none';this.parentNode.innerHTML='<span class=team-initials>S</span>'"></div>
         <div class="team-info">
           <div class="team-name">Shubham Maini</div><div class="team-role">UI/UX Designer</div>
        
